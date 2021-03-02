@@ -16,7 +16,9 @@ function newmeet() {
 }
 
 function opennewmeet(meet){
-  meetid=meet.meetid;
-  meetKey=meet.meetKey;
-  window.location.href = "/meet.html?meetid=" + meetid +'&meetkey='+meetKey
+  if (meet.meetKey != null){
+    meetid=meet.meetid;
+    meetKey=meet.meetKey;
+    window.location.href = "/meet.html?meetid=" + meetid +'&meetkey='+meetKey
+  }
 }
