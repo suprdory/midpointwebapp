@@ -13,7 +13,7 @@ document.head.appendChild(script);
 
 function initMap() {
   bounds = new google.maps.LatLngBounds();
-  Gmap = new google.maps.Map(document.getElementById("map"), {
+  Gmap = new google.maps.Map(document.getElementById("mmap"), {
     zoom: 14,
     center: LDNlatlng,
   });

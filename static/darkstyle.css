@@ -4,6 +4,12 @@
   box-sizing: border-box;
 } */
 
+html,body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: #333;
   color: #bbb;
@@ -33,12 +39,9 @@ input[type=button],a, button, .button {
 }
 
 #map {
-  height: calc(100% - 300px);
+  height: calc(50%);
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+#mmap {
+  height: calc(80%);
 }

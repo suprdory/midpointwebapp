@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>MidPoint/Add User</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="/static/globalvars.js"></script>
   <link rel="stylesheet"  href="/static/darkstyle.css">
   <link rel="shortcut icon" href="/static/favicon.ico">
@@ -21,10 +22,9 @@
   <option value="TRANSIT">Transit</option>
   <option value="DRIVING">Driving</option>
 </select>
-
+<button onclick='getLocation()'>Get Current Location</button>
 <button id="adduser">Add User</button>
 <!-- <button onclick='postuser()'>Add User</button> -->
-<button onclick='getLocation()'>Get Current Location</button>
 
 <div id="map"></div>
 <script src="/static/setkey.js"></script>
