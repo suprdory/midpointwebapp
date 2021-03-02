@@ -50,7 +50,7 @@ function deletemeet(meetid) {
       // .then(data=>{return data.json()})
       .then(res=>{console.log(res)})
       .then(error=>{console.log(error)})
-      .then(function(){window.location.href = "/newmeet.html"})
+      .then(function(){window.location.href = "/"})
     }
 
 function populateMeetTable(data){
