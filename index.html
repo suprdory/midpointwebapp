@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MidPoint/Display Meets</title>
-    <script src="/static/globalvars.js"></script>
+  <title>MidPoint/New Meet</title>
+  <script src="/static/globalvars.js"></script>
   <link rel="shortcut icon" href="/static/favicon.ico">
   <link rel="stylesheet"  href="/static/darkstyle.css">
-  <script src="/static/index.js"></script>
+  <script src="/static/newmeet.js"></script>
 </head>
 <body>
-  <h1> Meets Overview </h1>
-  <h2> Current Meets </h2>
+  <h1> New Meet </h1>
   <p id=current></p>
-  <h2> New Meet </h2>
   <form>
     <label for="meetname_id">Meet Name</label>
     <input type="text" id="meetname_id" name="meetname">
+    <label for="password_id">Password</label>
+    <input type="password" id="password_id" name="password">
   </form>
   <a class=button onclick="newmeet()">Submit</button>
 
