@@ -1,7 +1,3 @@
-const baseUrl = 'http://localhost:5000/'
-const $ = id => document.getElementById(id);
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
 pw=urlParams.get('pw')
 
 function showError(error){
