@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MidPoint/Meets</title>
+  <script src="/static/globalvars.js"></script>
+  <link rel="stylesheet"  href="/static/darkstyle.css">
+  <link rel="shortcut icon" href="/static/favicon.ico">
+</head>
+<body>
+<h1>Meet Info </h1>
+<h2>Meet</h2>
+<table style="width:100%" id='meetTable'>
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+      <td>Date</td>
+      <td>MP Lon</td>
+      <td>MP Lat</td>
+      </tr>
+</table>
+<button  onclick="deletemeet(meetid)">Delete Meet</button>
+<a id='meetmap_id'>Meet Map</a>
+<h2>Users</h2>
+<table style="width:100%" id='userTable'>
+  <tr>
+    <td>ID</td>
+    <td>Name</td>
+    <td>Lon</td>
+    <td>Lat</td>
+    <td>Duration</td>
+    <td>Distance</td>
+    <td>Mode</td>
+    </tr>
+  </table>
+  <a id=adduser>Add User</a>
+</body>
+<script src="/static/meet.js"></script>
+</html>
+<br>
+<!-- <a href='/'>Select Meet</a> -->
