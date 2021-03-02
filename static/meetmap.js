@@ -1,7 +1,7 @@
 const meetid=urlParams.get('meetid')
 const meetkey=urlParams.get('meetkey')
 
-let Gmap,Gmarker,bounds,mpLatLng
+let Gmap,Gmarker,mpLatLng
 let Users=[], UserMarkers=[]; Infos=[]; dirRends=[]
 const LDNlatlng = { lat: 51.474061958491355, lng: -0.09071767330169678};
 $("meet_id").href='meet.html?meetid='+meetid+'&meetkey='+meetkey
@@ -12,7 +12,6 @@ script.async = false;
 document.head.appendChild(script);
 
 function initMap() {
-  bounds = new google.maps.LatLngBounds();
   Gmap = new google.maps.Map(document.getElementById("mmap"), {
     zoom: 14,
     center: LDNlatlng,
@@ -87,15 +86,19 @@ function updateMidPoint(latLng){
 }
 
 function updateRoutes(){
+  bounds = new google.maps.LatLngBounds();
   for (dirRend of dirRends){
     dirRend.setMap(null)
   }
   for (i=0;i<Users.length;i++){
     user=Users[i];
     uLatLng={lat:user.lat,lng:user.lon};
+    bounds.extend(uLatLng)
     plotRoute(uLatLng,mpLatLng,user.userid,user.gRouteMode,i);
   }
+  bounds.extend(mpLatLng)
   Gmap.fitBounds(bounds);
+
 }
 function updateInfoWindow(uix,response) {
   user=Users[uix]
@@ -144,8 +147,7 @@ function createMarker(latlng,name) {
     // draggable: true
   };
   newMarker = new google.maps.Marker(markerOptions);
-  bounds.extend(latlng);
-  // Gmap.fitBounds(bounds);
+  // bounds.extend(latlng);
   return newMarker
 }
 

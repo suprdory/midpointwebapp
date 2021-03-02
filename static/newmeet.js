@@ -7,11 +7,19 @@ function newmeet() {
     method:'POST',
     body:JSON.stringify(newmeetdata),
     headers:{'Content-Type': 'application/json; charset=utf-8'}})
-    .then(resp=>resp.json())
+    .then(response=>{
+      if (response.ok) {
+       return response.json();
+      }
+      return Promise.reject(response);
+    })
     .then(data => opennewmeet(data))
-    .then(res=>{console.log(res)})
-    .then(error=>{console.log(error)})
-
+    // .then(res=>{console.log(res)})
+    // .then(error=>{console.log(error)})
+    .catch((error) => {
+      alert('Fail')
+      console.log('Something went wrong.', error);
+    });
   // window.location.href = "/web/meet";
 }
 
@@ -19,6 +27,6 @@ function opennewmeet(meet){
   if (meet.meetKey != null){
     meetid=meet.meetid;
     meetKey=meet.meetKey;
-    window.location.href = "/meet.html?meetid=" + meetid +'&meetkey='+meetKey
+    window.location.href = "/adduser.html?meetid=" + meetid +'&meetkey='+meetKey
   }
 }

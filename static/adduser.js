@@ -1,6 +1,6 @@
 meetid=urlParams.get('meetid')
 meetkey=urlParams.get('meetkey')
-// Create the script tag, set the appropriate attributes
+
 var script = document.createElement('script');
 script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&callback=initMap';
 script.async = false;
@@ -13,16 +13,20 @@ function postuser() {
   var lat = $("lat_id").value;
   var lon = $("lon_id").value;
   var mode = $("gmode_id").value;
-  newuserdata={username:un,lon:lon,lat:lat,meetid:meetid,mode:mode};
-  url='user?meetkey=' + meetkey;
-  fetch(baseUrl+url,{
-    method:'POST',
-    body:JSON.stringify(newuserdata),
-    headers:{'Content-Type': 'application/json; charset=utf-8'}})
-  .then(data=>{return data.json()})
-  .then(res=>{console.log(res)})
-  .then(error=>{console.log(error)})
-  .then(function(){window.location.href = "/meet.html?meetid=" + meetid +'&meetkey='+meetkey})
+  if (un==''){
+    alert('No User Name')
+  } else {
+    newuserdata={username:un,lon:lon,lat:lat,meetid:meetid,mode:mode};
+    url='user?meetkey=' + meetkey;
+    fetch(baseUrl+url,{
+      method:'POST',
+      body:JSON.stringify(newuserdata),
+      headers:{'Content-Type': 'application/json; charset=utf-8'}})
+    .then(data=>{return data.json()})
+    .then(res=>{console.log(res)})
+    .then(error=>{console.log(error)})
+    .then(function(){window.location.href = "/meet.html?meetid=" + meetid +'&meetkey='+meetkey})
+  }
 }
 let Gmap,Gmarker
 
@@ -41,6 +45,7 @@ function initMap() {
     Gmarker.setMap(null);
     createMarker(latlng);
   });
+  getLocation()
 }
 
 function createMarker(latlng) {
@@ -80,7 +85,6 @@ function getLocation() {
   const options = {
   enableHighAccuracy: true
   }
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(geocentre, showError, options)
   }
