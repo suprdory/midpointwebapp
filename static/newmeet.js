@@ -1,8 +1,9 @@
 function newmeet() {
   var mn = document.getElementById("meetname_id").value;
-  var pw = document.getElementById("password_id").value;
+  // var pw = document.getElementById("password_id").value;
   newmeetdata={meetname:mn};
-  url='meet' + '?pw=' + pw;
+  // url='meet' + '?pw=' + pw;
+  url='meet'
   fetch(baseUrl+url,{
     method:'POST',
     body:JSON.stringify(newmeetdata),
