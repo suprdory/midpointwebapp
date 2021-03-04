@@ -8,7 +8,11 @@ const LDNlatlng = { lat: 51.474061958491355, lng: -0.09071767330169678};
 $("meet_id").href='meet.html?meetid='+meetid+'&meetkey='+meetkey
 $("add_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
 $("invite_id").addEventListener("click", copyInvite, false);
-
+if (window.location.port==""){
+invite_url=window.location.hostname + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
+} else {
+invite_url=window.location.hostname + ":" +window.location.port + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
+}
 // load gmaps api + callback to initMap
 var script = document.createElement('script');
 script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&callback=initMap';
@@ -17,7 +21,7 @@ document.head.appendChild(script);
 
 function copyInvite() {
   var textArea = document.createElement("textarea");
-  textArea.value = window.location.hostname + ":" +window.location.port + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
+  textArea.value = invite_url
   document.body.appendChild(textArea);
   textArea.focus();
   textArea.select();
