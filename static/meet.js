@@ -1,7 +1,7 @@
 meetid=urlParams.get('meetid')
 meetkey=urlParams.get('meetkey')
 
-$("adduser").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
+$("adduser_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
 $("meetmap_id").href='meetmap.html?meetid='+meetid+'&meetkey='+meetkey
 
 function getMeet(meetid) {

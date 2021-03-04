@@ -152,6 +152,7 @@ function updateRoutes(){
     plotRoute(uLatLng,mpLatLng,user.userid,user.gRouteMode,i);
   }
   bounds.extend(mpLatLng)
+  Gmap.fitBounds(bounds);
 }
 function updateInfoWindow(uix,response) {
   user=Users[uix]
