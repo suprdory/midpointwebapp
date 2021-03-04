@@ -1,5 +1,6 @@
 meetid=urlParams.get('meetid')
 meetkey=urlParams.get('meetkey')
+let Gmap,Gmarker
 
 // load gmaps api + callback initMap
 var script = document.createElement('script');
@@ -26,7 +27,13 @@ function getMeet(meetid) {
 }
 
 function setTitle(meet){
-$("title_id").innerHTML="Join " + meet.users[0].username + '\'s meet: ' + meet.meetname;
+  if (meet.users.length>0){
+    // console.log(meet.users.length>0)
+    titText="Join " + meet.users[0].username + '\'s meet: ' + meet.meetname;
+  } else{
+    titText="Join " + meet.meetname;
+  }
+    $("title_id").innerHTML=titText
 }
 
 
@@ -50,7 +57,6 @@ function postuser() {
     .then(function(){window.location.href = "/meetmap.html?meetid=" + meetid +'&meetkey='+meetkey})
   }
 }
-let Gmap,Gmarker
 
 function initMap() {
   const LDNlatlng = { lat: 51.474061958491355, lng: -0.09071767330169678};
