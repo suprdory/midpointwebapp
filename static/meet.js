@@ -97,7 +97,6 @@ function populateUserTable(data){
     btn.id = "btn" + d.userid;
     // btn.addEventListener("click",deleteuser.bind(this,d.userid));
     btn.addEventListener("click",function(){deleteuser(d.userid)});
-
     udel.appendChild(btn)
   }
 }

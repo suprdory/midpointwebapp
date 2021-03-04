@@ -10,17 +10,20 @@ $("add_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
 $("invite_id").addEventListener("click", copyInvite, false);
 $("reset_id").addEventListener("click", resetMidpoint, false);
 $("set_id").addEventListener("click", setMidpoint, false);
+const locationsAvailable = $('locationList');
+
 
 if (window.location.port==""){
   invite_url=window.location.hostname + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
 } else {
   invite_url=window.location.hostname + ":" +window.location.port + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
 }
-// load gmaps api + callback to initMap
-var script = document.createElement('script');
-script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&callback=initMap';
-script.async = false;
-document.head.appendChild(script);
+// load gmaps api + callback to initMap + places library
+var script2 = document.createElement('script');
+script2.src = 'https://maps.googleapis.com/maps/api/js?key=' +
+  gmaps_api_key + '&libraries=places&callback=initMap';
+script2.async = true;
+document.head.appendChild(script2);
 
 function setMidpoint(){
     newMPdata={midpoint_lon:mpLatLng.lng,midpoint_lat:mpLatLng.lat};
@@ -32,8 +35,72 @@ function setMidpoint(){
     .then(data=>data.json())
     .then(res=> console.log(res))
     .then(error=>console.log(error))
-    // .then(function(){window.location.href = "/meetmap.html?meetid=" + meetid +'&meetkey='+meetkey})
+    nearbyPlaces();
+}
 
+function nearbyPlaces(){
+  var request = {
+    location: mpLatLng,
+    // radius: '1000',
+    type: ['restaurant'],
+    rankBy: google.maps.places.RankBy.DISTANCE,
+  };
+
+  service = new google.maps.places.PlacesService(Gmap);
+  service.nearbySearch(request, callback);
+  function callback(places){
+    console.log('PLACES')
+    console.log(places)
+    populatePlaces(places);
+  }
+}
+
+function removeAddressCards(){
+  if (locationsAvailable.hasChildNodes()) {
+    while (locationsAvailable.firstChild) {
+      locationsAvailable.removeChild(locationsAvailable.firstChild);
+    }
+  }
+}
+
+function populatePlaces(places){
+  //display first 10 places
+  places.length=10
+  // check if the container has a child node to force re-render of dom
+  removeAddressCards()
+  for (let place of places){
+    // first create the input div container
+    const addressCard = document.createElement('div');
+    // then create the input and label elements
+    const input = document.createElement('input');
+    // const label = document.createElement('label');
+    // then add materialize classes to the div and input
+    addressCard.classList.add("card");
+    // input.classList.add("with-gap");
+    // add attributes to them
+    // label.setAttribute("for", geoResult.place_id);
+    // label.innerHTML = geoResult.vicinity;
+    input.setAttribute("name", "address");
+    input.setAttribute("type", "text");
+    input.setAttribute("value", place.name);
+    input.setAttribute("id", place.place_id);
+    addressCard.appendChild(input);
+
+    let placeLatLng={
+      lat:place.geometry.location.lat(),
+      lng:place.geometry.location.lng(),
+    }
+    addressCard.addEventListener("click",
+      function() {
+        updateMidPoint(placeLatLng)
+        Gmap.setCenter(placeLatLng)
+        Gmap.setZoom(18)
+      },false)
+
+    // addressCard.appendChild(label)
+      // append the created div to the locationsAvailable div
+      locationsAvailable.appendChild(addressCard)
+  }
 }
 
 function resetMidpoint(){
@@ -125,6 +192,7 @@ function initMidPoint(latLng){
   mpMarker.addListener('dragend', handleDragEvent);
   mpLatLng=latLng
   updateRoutes();
+  nearbyPlaces();
 }
 
 function handleDragEvent(event){
@@ -132,12 +200,15 @@ function handleDragEvent(event){
   const lng =  event.latLng.lng();
   const latLng = {lat: lat, lng: lng };
   updateMidPoint(latLng);
-  Gmap.fitBounds(bounds);
+  Gmap.fitBounds(bounds)
+  // setMidpoint();
 }
 
 function updateMidPoint(latLng){
   mpLatLng=latLng
+  mpMarker.setPosition(mpLatLng)
   updateRoutes();
+  nearbyPlaces();
 }
 
 function updateRoutes(){
