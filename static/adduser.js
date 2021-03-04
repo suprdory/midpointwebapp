@@ -25,7 +25,7 @@ function postuser() {
     .then(data=>{return data.json()})
     .then(res=>{console.log(res)})
     .then(error=>{console.log(error)})
-    .then(function(){window.location.href = "/meet.html?meetid=" + meetid +'&meetkey='+meetkey})
+    .then(function(){window.location.href = "/meetmap.html?meetid=" + meetid +'&meetkey='+meetkey})
   }
 }
 let Gmap,Gmarker

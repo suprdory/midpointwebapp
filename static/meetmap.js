@@ -4,12 +4,33 @@ const meetkey=urlParams.get('meetkey')
 let Gmap,Gmarker,mpLatLng
 let Users=[], UserMarkers=[]; Infos=[]; dirRends=[]
 const LDNlatlng = { lat: 51.474061958491355, lng: -0.09071767330169678};
-$("meet_id").href='meet.html?meetid='+meetid+'&meetkey='+meetkey
 
+$("meet_id").href='meet.html?meetid='+meetid+'&meetkey='+meetkey
+$("add_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
+$("invite_id").addEventListener("click", copyInvite, false);
+
+// load gmaps api + callback to initMap
 var script = document.createElement('script');
 script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&callback=initMap';
 script.async = false;
 document.head.appendChild(script);
+
+function copyInvite() {
+  var textArea = document.createElement("textarea");
+  textArea.value = window.location.hostname + ":" +window.location.port + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+    alert("Copied invite link: " + textArea.value);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+  document.body.removeChild(textArea);
+}
 
 function initMap() {
   Gmap = new google.maps.Map(document.getElementById("mmap"), {
