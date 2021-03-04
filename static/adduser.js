@@ -7,7 +7,10 @@ script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&c
 script.async = false;
 document.head.appendChild(script);
 
-$("adduser").addEventListener("click", postuser, false);
+$("join_id").addEventListener("click", postuser, false);
+$("view_id").href='meetmap.html?meetid='+meetid+'&meetkey='+meetkey
+
+
 getMeet(meetid);
 
 function getMeet(meetid) {
