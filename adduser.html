@@ -9,13 +9,10 @@
 
 </head>
 <body>
-
+<h1 id=title_id></h1>
 <label for="username_id">User Name</label>
 <input type="text" id="username_id" name="username"><br>
-<label for="lon_id">Longitude</label>
-<input type="text" id="lon_id" name="longitude"><br>
-<label for="lat_id">Latitude</label>
-<input type="text" id="lat_id" name="latitude"><br>
+
 <select class=button name="gmode" id="gmode_id">
   <option value="WALKING">Walking</option>
   <option value="BICYCLING">Cycling</option>
@@ -27,6 +24,12 @@
 <!-- <button onclick='postuser()'>Add User</button> -->
 
 <div id="map"></div>
+
+<label for="lon_id">Longitude</label>
+<input type="text" id="lon_id" name="longitude"><br>
+<label for="lat_id">Latitude</label>
+<input type="text" id="lat_id" name="latitude"><br>
+
 <script src="/static/setkey.js"></script>
 <script src="/static/setkeylocal.js"></script>
 <script src="/static/adduser.js"></script>

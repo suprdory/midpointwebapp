@@ -1,12 +1,31 @@
 meetid=urlParams.get('meetid')
 meetkey=urlParams.get('meetkey')
 
+// load gmaps api + callback initMap
 var script = document.createElement('script');
 script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&callback=initMap';
 script.async = false;
 document.head.appendChild(script);
 
 $("adduser").addEventListener("click", postuser, false);
+getMeet(meetid);
+
+function getMeet(meetid) {
+    // meetdata={meetkey:meetkey};
+    url='meet/' + meetid + '?meetkey=' +meetkey
+    json=fetch(baseUrl + url,{
+      method:'GET',
+      headers:{'Content-Type': 'application/json; charset=utf-8'},
+      // body:JSON.stringify(meetdata)
+    })
+    .then(resp => resp.json())
+    .then(data => setTitle(data))
+}
+
+function setTitle(meet){
+$("title_id").innerHTML="Join " + meet.users[0].username + '\'s meet: ' + meet.meetname;
+}
+
 
 function postuser() {
   var un = $("username_id").value;
