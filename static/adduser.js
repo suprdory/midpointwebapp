@@ -63,6 +63,9 @@ function initMap() {
   Gmap = new google.maps.Map(document.getElementById("map"), {
     zoom: 14,
     center: LDNlatlng,
+    streetViewControl: false,
+    mapTypeControl: false,
+    fullscreenControl: false,
   });
   createMarker(LDNlatlng)
   Gmap.addListener("click", (mapsMouseEvent) => {

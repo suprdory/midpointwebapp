@@ -72,7 +72,7 @@ function populatePlaces(places){
     // first create the input div container
     const addressCard = document.createElement('div');
     // then create the input and label elements
-    const input = document.createElement('input');
+    const input = document.createElement('button');
     // const label = document.createElement('label');
     // then add materialize classes to the div and input
     addressCard.classList.add("card");
@@ -80,6 +80,7 @@ function populatePlaces(places){
     // add attributes to them
     // label.setAttribute("for", geoResult.place_id);
     // label.innerHTML = geoResult.vicinity;
+    input.innerHTML=place.name;
     input.setAttribute("name", "address");
     input.setAttribute("type", "text");
     input.setAttribute("value", place.name);
@@ -129,6 +130,9 @@ function initMap() {
   Gmap = new google.maps.Map(document.getElementById("mmap"), {
     zoom: 14,
     center: LDNlatlng,
+    streetViewControl: false,
+    mapTypeControl: false,
+    fullscreenControl: false,
   });
   getUsers('stored')
   // getUsers(meetid);

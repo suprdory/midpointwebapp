@@ -38,10 +38,63 @@ input[type=button],a, button, .button, .card{
   margin: 8px 8px 8px 0px;
 }
 
-#map {
-  height: calc(50%);
-}
+/* #map {
+  height: 600px;
+} */
 
 #mmap {
+  position: absolute;
   height: calc(80%);
+  height:auto;
+  width:auto;
+  z-index: 0;
+  left:0%;
+  right:0%;
+  top:0%;
+  bottom:0%;
+}
+
+
+
+#buttons {
+position: absolute;
+top: 0;
+right: 0;
+left: 0;
+width: auto;
+height: auto;
+/* border: 3px solid #0000FF; */
+z-index: 1;
+}
+
+#map {
+  position: absolute;
+  left:0%;
+  right:0%;
+  top:0%;
+  bottom:0%;
+  height:auto;
+  width:auto;
+  z-index: 0;
+  /* border: 3px solid #73AD21; */
+}
+#latlon {
+  display: none;
+  position
+}
+
+.darktext {
+color: #333;
+font-weight: bold;
+}
+
+div.scrollmenu {
+  /* height:auto; */
+  width:100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 30;
+  overflow:auto;
+  white-space: nowrap;
 }

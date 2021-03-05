@@ -7,30 +7,36 @@
   <link rel="stylesheet"  href="/static/darkstyle.css">
   <link rel="shortcut icon" href="/static/favicon.ico">
 
+
 </head>
 <body>
-<h1 id=title_id></h1>
-<label for="username_id">User Name</label>
-<input type="text" id="username_id" name="username"><br>
+<div class="container">
 
-<select class=button name="gmode" id="gmode_id">
-  <option value="WALKING">Walking</option>
-  <option value="BICYCLING">Cycling</option>
-  <option value="TRANSIT">Transit</option>
-  <option value="DRIVING">Driving</option>
-</select>
-<button onclick='getLocation()'>Current Location</button>
-<button id="join_id">Join!</button>
-<a id="view_id">View</a>
+  <div id="buttons">
+    <!-- <label for="username_id">User Name</label> -->
+    <input type="text" placeholder="Enter User Name" id="username_id" name="username">
+    <select class=button name="gmode" id="gmode_id">
+      <option value="WALKING">Walking</option>
+      <option value="BICYCLING">Cycling</option>
+      <option value="TRANSIT">Transit</option>
+      <option value="DRIVING">Driving</option>
+    </select>
+    <button onclick='getLocation()'>Current Location</button>
+    <button id="join_id">Join!</button>
+    <a id="view_id">View</a>
 
+    <p class=darktext id=title_id>  </p>
+  </div>
 <!-- <button onclick='postuser()'>Add User</button> -->
+  <div id="map"></div>
+</div>
 
-<div id="map"></div>
-
+<form id="latlon">
 <label for="lon_id">Longitude</label>
 <input type="text" id="lon_id" name="longitude"><br>
 <label for="lat_id">Latitude</label>
 <input type="text" id="lat_id" name="latitude"><br>
+<form>
 
 <script src="/static/setkey.js"></script>
 <script src="/static/setkeylocal.js"></script>
