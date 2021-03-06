@@ -66,24 +66,19 @@ function removeAddressCards(){
 function populatePlaces(places){
   //display first 10 places
   places.length=10
-  // check if the container has a child node to force re-render of dom
   removeAddressCards()
+  const placesTitle = document.createElement('a');
+  placesTitle.innerHTML="Nearby Places:"
+  placesTitle.className="darktext"
+  locationsAvailable.appendChild(placesTitle)
+
   for (let place of places){
-    // first create the input div container
     const addressCard = document.createElement('div');
-    // then create the input and label elements
-    const input = document.createElement('button');
-    // const label = document.createElement('label');
-    // then add materialize classes to the div and input
-    addressCard.classList.add("card");
-    // input.classList.add("with-gap");
-    // add attributes to them
-    // label.setAttribute("for", geoResult.place_id);
-    // label.innerHTML = geoResult.vicinity;
+    const input = document.createElement('a');
+
+    input.classList.add("placecard");
+
     input.innerHTML=place.name;
-    input.setAttribute("name", "address");
-    input.setAttribute("type", "text");
-    input.setAttribute("value", place.name);
     input.setAttribute("id", place.place_id);
     addressCard.appendChild(input);
 
@@ -91,15 +86,15 @@ function populatePlaces(places){
       lat:place.geometry.location.lat(),
       lng:place.geometry.location.lng(),
     }
+
     addressCard.addEventListener("click",
       function() {
         updateMidPoint(placeLatLng)
         Gmap.setCenter(placeLatLng)
         Gmap.setZoom(18)
+        Gmap.fitBounds(bounds,mapPadding)
       },false)
 
-    // addressCard.appendChild(label)
-      // append the created div to the locationsAvailable div
       locationsAvailable.appendChild(addressCard)
   }
 }

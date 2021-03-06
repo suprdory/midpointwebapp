@@ -8,23 +8,22 @@
   <link rel="stylesheet"  href="/static/darkstyle.css">
   <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 
-  <script src="/static/newmeet.js"></script>
 </head>
+
 <body>
   <h1> New Meet </h1>
   <p id=current></p>
-  <form>
-    <label for="meetname_id">Meet Name</label>
-    <input type="text" id="meetname_id" name="meetname">
+  <form onsubmit="return false">
+      <!-- <form onsubmit="return false"> -->
+    <!-- <label for="meetname_id">Meet Name</label> -->
+    <input class=mapbutton type="text" id="meetname_id" name="meetname" placeholder="Meet Name">
     <!-- <label for="password_id">Password</label>
     <input type="password" id="password_id" name="password"> -->
     <!-- <div class="g-recaptcha" data-sitekey="6LeNDm8aAAAAAP20uXdVkCdw0jPeiiD8jAbn-jlq"></div> -->
+    <a class=mapbutton id=submit_id>Submit</button></a>
   </form>
-  <a class=button onclick="newmeet()">Submit</button></a>
-
-
-
-
+  <!-- <a class=mapbutton onclick="newmeet()">Submit</button></a> -->
 
 </body>
+<script src="/static/newmeet.js"></script>
 </html>

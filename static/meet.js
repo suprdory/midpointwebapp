@@ -92,8 +92,9 @@ function populateUserTable(data){
     udist.innerHTML = d.gRouteDistance;
     gMode.innerHTML = d.gRouteMode;
 
-    let btn = document.createElement("button");
-    btn.textContent = "Delete:"+d.userid;
+    let btn = document.createElement("a");
+    btn.className = 'mapbutton'
+    btn.textContent = "Delete"
     btn.id = "btn" + d.userid;
     // btn.addEventListener("click",deleteuser.bind(this,d.userid));
     btn.addEventListener("click",function(){deleteuser(d.userid)});
