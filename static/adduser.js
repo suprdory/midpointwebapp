@@ -10,7 +10,11 @@ document.head.appendChild(script);
 
 $("join_id").addEventListener("click", postuser, false);
 $("view_id").href='meetmap.html?meetid='+meetid+'&meetkey='+meetkey
-
+$("username_id").addEventListener("keypress", function(event) {
+   if (event.keyCode == 13) {
+       $("username_id").blur();
+   }
+ });
 
 getMeet(meetid);
 
