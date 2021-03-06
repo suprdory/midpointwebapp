@@ -4,19 +4,19 @@
   box-sizing: border-box;
 } */
 
-html,body {
+/* html,body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
+} */
 
-body {
+/* body {
   background: #333;
   color: #bbb;
   font-family: Verdana, sans-serif;
-}
+} */
 
-input[type=text],input[type=password] {
+/* input[type=text],input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 8px 8px 0px;
@@ -24,9 +24,9 @@ input[type=text],input[type=password] {
   border: none;
   background-color: #222;
   color: #999;
-}
+} */
 
-input[type=button],a, button, .button, .card{
+/* input,a, .card{
   border: none;
   padding: 15px 32px;
   text-align: center;
@@ -34,26 +34,14 @@ input[type=button],a, button, .button, .card{
   display: inline-block;
   font-size: 16px;
   background-color: #222;
+  background-color: transparent;
   color: #999;
-  margin: 8px 8px 8px 0px;
-}
+  margin: 4px 8px 4px 8px;
+} */
 
 /* #map {
   height: 600px;
 } */
-
-#mmap {
-  position: absolute;
-  height: calc(80%);
-  height:auto;
-  width:auto;
-  z-index: 0;
-  left:0%;
-  right:0%;
-  top:0%;
-  bottom:0%;
-}
-
 
 
 #buttons {
@@ -61,8 +49,6 @@ position: absolute;
 top: 0;
 right: 0;
 left: 0;
-width: auto;
-height: auto;
 /* border: 3px solid #0000FF; */
 z-index: 1;
 }
@@ -73,8 +59,6 @@ z-index: 1;
   right:0%;
   top:0%;
   bottom:0%;
-  height:auto;
-  width:auto;
   z-index: 0;
   /* border: 3px solid #73AD21; */
 }
@@ -83,18 +67,18 @@ z-index: 1;
   position
 }
 
-.darktext {
+/* .darktext {
 color: #333;
 font-weight: bold;
-}
+} */
 
 div.scrollmenu {
-  /* height:auto; */
-  width:100%;
+  height:auto;
+  width:80%;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 30;
+  bottom: 12px;
+  left: 75px;
+  right: 60px;
   overflow:auto;
   white-space: nowrap;
 }

@@ -127,16 +127,19 @@ function copyInvite() {
 }
 
 function initMap() {
-  Gmap = new google.maps.Map(document.getElementById("mmap"), {
+  Gmap = new google.maps.Map($("map"), {
     zoom: 14,
     center: LDNlatlng,
     streetViewControl: false,
     mapTypeControl: false,
     fullscreenControl: false,
   });
+  // Gmap.setPadding(0,100,0,100);
   getUsers('stored')
   // getUsers(meetid);
 }
+mapPadding={top:130,bottom:130}
+
 function getUsers(mpMethod) {
   url='meetusers/' + meetid +'?meetkey='+meetkey
     json=fetch(baseUrl + url,{
@@ -204,7 +207,7 @@ function handleDragEvent(event){
   const lng =  event.latLng.lng();
   const latLng = {lat: lat, lng: lng };
   updateMidPoint(latLng);
-  Gmap.fitBounds(bounds)
+  Gmap.fitBounds(bounds,mapPadding)
   // setMidpoint();
 }
 
@@ -227,7 +230,7 @@ function updateRoutes(){
     plotRoute(uLatLng,mpLatLng,user.userid,user.gRouteMode,i);
   }
   bounds.extend(mpLatLng)
-  Gmap.fitBounds(bounds);
+  Gmap.fitBounds(bounds,mapPadding);
 }
 function updateInfoWindow(uix,response) {
   user=Users[uix]
