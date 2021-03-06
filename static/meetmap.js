@@ -5,6 +5,7 @@ let Gmap,Gmarker,mpLatLng,mpMarker
 let Users=[], UserMarkers=[]; Infos=[]; dirRends=[]
 const LDNlatlng = { lat: 51.474061958491355, lng: -0.09071767330169678};
 
+// setup DOM elements
 $("meet_id").href='meet.html?meetid='+meetid+'&meetkey='+meetkey
 $("add_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
 $("invite_id").addEventListener("click", copyInvite, false);
@@ -12,7 +13,7 @@ $("reset_id").addEventListener("click", resetMidpoint, false);
 $("set_id").addEventListener("click", setMidpoint, false);
 const locationsAvailable = $('locationList');
 
-
+//
 if (window.location.port==""){
   invite_url=window.location.hostname + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
 } else {
@@ -25,17 +26,107 @@ script2.src = 'https://maps.googleapis.com/maps/api/js?key=' +
 script2.async = true;
 document.head.appendChild(script2);
 
-function setMidpoint(){
-    newMPdata={midpoint_lon:mpLatLng.lng,midpoint_lat:mpLatLng.lat};
-    url='midpoint/'+meetid+'/drag?meetkey=' + meetkey;
-    fetch(baseUrl+url,{
-      method:'PATCH',
-      body:JSON.stringify(newMPdata),
+function initMap() {
+  Gmap = new google.maps.Map($("map"), {
+    zoom: 14,
+    center: LDNlatlng,
+    streetViewControl: false,
+    mapTypeControl: false,
+    fullscreenControl: false,
+  });
+  // Gmap.setPadding(0,100,0,100);
+  getUsers('stored')
+  // getUsers(meetid);
+}
+
+function getUsers(mpMethod) {
+  url='meetusers/' + meetid +'?meetkey='+meetkey
+    json=fetch(baseUrl + url,{
+      method:'GET',
       headers:{'Content-Type': 'application/json; charset=utf-8'}})
-    .then(data=>data.json())
-    .then(res=> console.log(res))
-    .then(error=>console.log(error))
-    nearbyPlaces();
+    .then(resp => resp.json())
+    .then(data => processUsers(data,mpMethod))
+}
+
+function processUsers(users,mpMethod){
+  let nUsers=users.length
+  for(user of users) {
+    // console.log(user.username)
+    uLatLng={lat:user.lat,lng:user.lon}
+    userMarker=createMarker(uLatLng,user.username)
+    userMarker.addListener('dragend',function(event) {handleUserDragEvent(event,user)})
+    UserMarkers.push(userMarker)
+    Users.push(user)
+
+    contentString="<b style=color:black;>"+user.username+"</b>";
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString,});
+    infowindow.open(Gmap, userMarker)
+    // infowindow.setStyle("background-color:black")
+    Infos.push(infowindow);
+  }
+  if (nUsers>1){
+    getMidPoint(meetid,mpMethod)
+  }
+  else {
+    Gmap.setCenter(uLatLng)
+  }
+}
+
+function handleUserDragEvent(event,user){
+  const lat =  event.latLng.lat();
+  const lng =  event.latLng.lng();
+  const latLng = {lat: lat, lng: lng };
+  console.log(latLng);
+  console.log(user);
+  // updateMidPoint(latLng);
+  // Gmap.fitBounds(bounds,getMapPadding())
+  // setMidpoint();
+}
+
+
+function getMidPoint(meetid,mpMethod) {
+  // console.log(meetid)
+  url='midpoint/' + meetid +'/'+ mpMethod +'?meetkey='+meetkey
+  fetch(baseUrl + url,{
+    method:'GET',
+    headers:{'Content-Type': 'application/json; charset=utf-8'}})
+    .then(resp => resp.json())
+    .then(data => initMidPoint({
+      lat:data.midpoint_lat,lng:data.midpoint_lon}))
+}
+
+function initMidPoint(latLng){
+  Gmap.setCenter(latLng)
+  let markerOptions = {
+    position: latLng,
+    map:Gmap,
+    title:'MidPoint',
+    clickable: true,
+    draggable: true
+  };
+  mpMarker = new google.maps.Marker(markerOptions);
+  mpMarker.setAnimation(google.maps.Animation.BOUNCE)
+  // mpMarker.addListener('drag', handleDragEvent);
+  mpMarker.addListener('dragend', handleDragEvent);
+  mpLatLng=latLng
+  updateRoutes();
+  nearbyPlaces();
+}
+
+function updateRoutes(){
+  bounds = new google.maps.LatLngBounds();
+  for (dirRend of dirRends){
+    dirRend.setMap(null)
+  }
+  for (i=0;i<Users.length;i++){
+    user=Users[i];
+    uLatLng={lat:user.lat,lng:user.lon};
+    bounds.extend(uLatLng)
+    plotRoute(uLatLng,mpLatLng,user.userid,user.gRouteMode,i);
+  }
+  bounds.extend(mpLatLng)
+  Gmap.fitBounds(bounds,getMapPadding());
 }
 
 function nearbyPlaces(){
@@ -49,10 +140,35 @@ function nearbyPlaces(){
   service = new google.maps.places.PlacesService(Gmap);
   service.nearbySearch(request, callback);
   function callback(places){
-    console.log('PLACES')
-    console.log(places)
+    // console.log('PLACES')
+    // console.log(places)
     populatePlaces(places);
   }
+}
+
+function getMapPadding(){
+  // padding fro map for fitBounds from top "buttons" row and bottom "places" elements
+  let buttonRect=$("buttons").getBoundingClientRect()
+  let locationRect=$("locationList").getBoundingClientRect()
+  let infoWindowHeight = 75 // px
+  mapPadding={
+    top: buttonRect.bottom+infoWindowHeight,
+    bottom: locationRect.height,}
+    // console.log(mapPadding)
+  return mapPadding
+}
+
+function setMidpoint(){
+    newMPdata={midpoint_lon:mpLatLng.lng,midpoint_lat:mpLatLng.lat};
+    url='midpoint/'+meetid+'/drag?meetkey=' + meetkey;
+    fetch(baseUrl+url,{
+      method:'PATCH',
+      body:JSON.stringify(newMPdata),
+      headers:{'Content-Type': 'application/json; charset=utf-8'}})
+    .then(data=>data.json())
+    .then(res=> console.log(res))
+    .then(error=>console.log(error))
+    nearbyPlaces();
 }
 
 function removeAddressCards(){
@@ -92,11 +208,13 @@ function populatePlaces(places){
         updateMidPoint(placeLatLng)
         Gmap.setCenter(placeLatLng)
         Gmap.setZoom(18)
-        Gmap.fitBounds(bounds,mapPadding)
+        Gmap.fitBounds(bounds,getMapPadding())
       },false)
 
       locationsAvailable.appendChild(addressCard)
   }
+  Gmap.setZoom(18)
+  Gmap.fitBounds(bounds,getMapPadding())
 }
 
 function resetMidpoint(){
@@ -121,88 +239,13 @@ function copyInvite() {
   document.body.removeChild(textArea);
 }
 
-function initMap() {
-  Gmap = new google.maps.Map($("map"), {
-    zoom: 14,
-    center: LDNlatlng,
-    streetViewControl: false,
-    mapTypeControl: false,
-    fullscreenControl: false,
-  });
-  // Gmap.setPadding(0,100,0,100);
-  getUsers('stored')
-  // getUsers(meetid);
-}
-mapPadding={top:130,bottom:130}
-
-function getUsers(mpMethod) {
-  url='meetusers/' + meetid +'?meetkey='+meetkey
-    json=fetch(baseUrl + url,{
-      method:'GET',
-      headers:{'Content-Type': 'application/json; charset=utf-8'}})
-    .then(resp => resp.json())
-    .then(data => processUsers(data,mpMethod))
-}
-
-function processUsers(users,mpMethod){
-  let nUsers=users.length
-  for(user of users) {
-    console.log(user.username)
-    uLatLng={lat:user.lat,lng:user.lon}
-    userMarker=createMarker(uLatLng,user.username)
-    UserMarkers.push(userMarker)
-    Users.push(user)
-
-    contentString="<b style=color:black;>"+user.username+"</b>";
-    const infowindow = new google.maps.InfoWindow({
-      content: contentString,});
-    infowindow.open(Gmap, userMarker)
-    // infowindow.setStyle("background-color:black")
-    Infos.push(infowindow);
-  }
-  if (nUsers>1){
-    getMidPoint(meetid,mpMethod)
-  }
-  else {
-    Gmap.setCenter(uLatLng)
-  }
-}
-
-function getMidPoint(meetid,mpMethod) {
-  console.log(meetid)
-  url='midpoint/' + meetid +'/'+ mpMethod +'?meetkey='+meetkey
-  fetch(baseUrl + url,{
-    method:'GET',
-    headers:{'Content-Type': 'application/json; charset=utf-8'}})
-    .then(resp => resp.json())
-    .then(data => initMidPoint({
-      lat:data.midpoint_lat,lng:data.midpoint_lon}))
-}
-
-function initMidPoint(latLng){
-  Gmap.setCenter(latLng)
-  let markerOptions = {
-    position: latLng,
-    map:Gmap,
-    title:'MidPoint',
-    clickable: true,
-    draggable: true
-  };
-  mpMarker = new google.maps.Marker(markerOptions);
-  mpMarker.setAnimation(google.maps.Animation.BOUNCE)
-  // mpMarker.addListener('drag', handleDragEvent);
-  mpMarker.addListener('dragend', handleDragEvent);
-  mpLatLng=latLng
-  updateRoutes();
-  nearbyPlaces();
-}
 
 function handleDragEvent(event){
   const lat =  event.latLng.lat();
   const lng =  event.latLng.lng();
   const latLng = {lat: lat, lng: lng };
   updateMidPoint(latLng);
-  Gmap.fitBounds(bounds,mapPadding)
+  Gmap.fitBounds(bounds,getMapPadding())
   // setMidpoint();
 }
 
@@ -213,20 +256,7 @@ function updateMidPoint(latLng){
   nearbyPlaces();
 }
 
-function updateRoutes(){
-  bounds = new google.maps.LatLngBounds();
-  for (dirRend of dirRends){
-    dirRend.setMap(null)
-  }
-  for (i=0;i<Users.length;i++){
-    user=Users[i];
-    uLatLng={lat:user.lat,lng:user.lon};
-    bounds.extend(uLatLng)
-    plotRoute(uLatLng,mpLatLng,user.userid,user.gRouteMode,i);
-  }
-  bounds.extend(mpLatLng)
-  Gmap.fitBounds(bounds,mapPadding);
-}
+
 function updateInfoWindow(uix,response) {
   user=Users[uix]
 
@@ -271,7 +301,7 @@ function createMarker(latlng,name) {
     title:name,
     label:name.charAt(0),
     clickable: true,
-    // draggable: true
+    draggable: true
   };
   newMarker = new google.maps.Marker(markerOptions);
   // bounds.extend(latlng);
@@ -279,7 +309,7 @@ function createMarker(latlng,name) {
 }
 
 function patchuser(userid,resp) {
-  console.log(resp)
+  // console.log(resp)
   patchdata={
     gRoute:resp,
     gRouteStatus:resp.status,
@@ -292,7 +322,7 @@ function patchuser(userid,resp) {
     body:JSON.stringify(patchdata),
     headers:{'Content-Type': 'application/json; charset=utf-8'}})
   .then(data=>{return data.json()})
-  .then(res=>{console.log(res)})
-  .then(error=>{console.log(error)})
+  // .then(res=>{console.log(res)})
+  // .then(error=>{console.log(error)})
   // window.location.href = "/web/meet/" + meet;
 }
