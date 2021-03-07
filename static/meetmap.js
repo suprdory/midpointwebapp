@@ -39,6 +39,12 @@ function initMap() {
   // getUsers(meetid);
 }
 
+function clearUserMarkers(){
+  while(UserMarkers.length){
+    UserMarkers.pop().setMap(null);
+  }
+}
+
 function getUsers(mpMethod) {
   url='meetusers/' + meetid +'?meetkey='+meetkey
     json=fetch(baseUrl + url,{
@@ -49,7 +55,9 @@ function getUsers(mpMethod) {
 }
 
 function processUsers(users,mpMethod){
+  clearUserMarkers();
   let nUsers=users.length
+  Users=[]
   for(user of users) {
     // console.log(user.username)
     uLatLng={lat:user.lat,lng:user.lon}
@@ -57,7 +65,6 @@ function processUsers(users,mpMethod){
     userMarker.addListener('dragend',function(event) {handleUserDragEvent(event,user)})
     UserMarkers.push(userMarker)
     Users.push(user)
-
     contentString="<b style=color:black;>"+user.username+"</b>";
     const infowindow = new google.maps.InfoWindow({
       content: contentString,});
@@ -74,13 +81,27 @@ function processUsers(users,mpMethod){
 }
 
 function handleUserDragEvent(event,user){
-  const lat =  event.latLng.lat();
-  const lng =  event.latLng.lng();
-  const latLng = {lat: lat, lng: lng };
-  console.log(latLng);
-  console.log(user);
+  //console.log
+  user.lon=event.latLng.lng(),
+  user.lat=event.latLng.lat(),
+  patchdata={
+    lat:event.latLng.lat(),
+    lon:event.latLng.lng(),
+  };
+    console.log(patchdata)
+  url='/user/'+user.userid.toString()+'?meetkey='+meetkey;
+  fetch(baseUrl+url,{
+    method:'PATCH',
+    body:JSON.stringify(patchdata),
+    headers:{'Content-Type': 'application/json; charset=utf-8'}})
+  .then(data=>{return data.json()})
+  .then(res=>{console.log(res)})
+  .then(error=>{console.log(error)})
+
+  updateBounds();
+  Gmap.fitBounds(bounds,getMapPadding())
+
   // updateMidPoint(latLng);
-  // Gmap.fitBounds(bounds,getMapPadding())
   // setMidpoint();
 }
 
@@ -122,11 +143,20 @@ function updateRoutes(){
   for (i=0;i<Users.length;i++){
     user=Users[i];
     uLatLng={lat:user.lat,lng:user.lon};
-    bounds.extend(uLatLng)
     plotRoute(uLatLng,mpLatLng,user.userid,user.gRouteMode,i);
   }
-  bounds.extend(mpLatLng)
+  updateBounds();
   Gmap.fitBounds(bounds,getMapPadding());
+}
+
+function updateBounds(){
+  for (i=0;i<Users.length;i++){
+    user=Users[i];
+    uLatLng={lat:user.lat,lng:user.lon};
+    bounds.extend(uLatLng);
+  }
+  bounds.extend(mpLatLng);
+
 }
 
 function nearbyPlaces(){
@@ -259,7 +289,6 @@ function updateMidPoint(latLng){
 
 function updateInfoWindow(uix,response) {
   user=Users[uix]
-
   contentString='<b style=color:black;">' +user.username + '<br>' + response.routes[0].legs[0].duration.text+'</b>'
       Infos[uix].setContent(contentString);
     }
