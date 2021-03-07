@@ -1,5 +1,15 @@
 const meetid=urlParams.get('meetid')
 const meetkey=urlParams.get('meetkey')
+if (window.location.port==""){
+  invite_url=window.location.hostname + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
+  meet_url=window.location.hostname + "/meetmap.html?meetid="+meetid+"&meetkey="+meetkey;
+
+} else {
+  invite_url=window.location.hostname + ":" +window.location.port + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
+  meet_url=window.location.hostname + ":" +window.location.port + "/meetmap.html?meetid="+meetid+"&meetkey="+meetkey;
+
+}
+
 
 let Gmap,Gmarker,mpLatLng,mpMarker
 let Users=[], UserMarkers=[]; Infos=[]; dirRends=[]
@@ -9,7 +19,7 @@ let showPlaces=false
 // setup DOM elements
 $("meet_id").href='meet.html?meetid='+meetid+'&meetkey='+meetkey
 $("add_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
-$("invite_id").addEventListener("click", copyInvite, false);
+$("invite_id").addEventListener("click", function(){copyLink(invite_url)}, false);
 $("reset_id").addEventListener("click", resetMidpoint, false);
 $("set_id").addEventListener("click", setMidpoint, false);
 $("showPlaces").addEventListener("click",togglePlaces,false);
@@ -21,7 +31,7 @@ function togglePlaces() {
     showPlaces=false;
     locationsAvailable.style.display="none"
     btn.innerHTML="Show Nearby Places"
-    Gmap.fitBounds(bounds,getMapPadding())
+    Gmap.fitBounds(getBounds(),getMapPadding())
 
   } else {
     showPlaces=true;
@@ -31,14 +41,6 @@ function togglePlaces() {
   }
 }
 
-
-
-//
-if (window.location.port==""){
-  invite_url=window.location.hostname + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
-} else {
-  invite_url=window.location.hostname + ":" +window.location.port + "/adduser.html?meetid="+meetid+"&meetkey="+meetkey;
-}
 // load gmaps api + callback to initMap + places library
 var script2 = document.createElement('script');
 script2.src = 'https://maps.googleapis.com/maps/api/js?key=' +
@@ -78,7 +80,8 @@ function processUsers(users,mpMethod){
   clearUserMarkers();
   let nUsers=users.length
   Users=[]
-  for(user of users) {
+  Infos=[]
+  for(let user of users) {
     // console.log(user.username)
     uLatLng={lat:user.lat,lng:user.lon}
     userMarker=createMarker(uLatLng,user.username)
@@ -118,8 +121,7 @@ function handleUserDragEvent(event,user){
   .then(res=>{console.log(res)})
   .then(error=>{console.log(error)})
 
-  updateBounds();
-  Gmap.fitBounds(bounds,getMapPadding())
+  Gmap.fitBounds(getBounds(),getMapPadding())
 
   // updateMidPoint(latLng);
   // setMidpoint();
@@ -156,7 +158,6 @@ function initMidPoint(latLng){
 }
 
 function updateRoutes(){
-  bounds = new google.maps.LatLngBounds();
   for (dirRend of dirRends){
     dirRend.setMap(null)
   }
@@ -165,17 +166,18 @@ function updateRoutes(){
     uLatLng={lat:user.lat,lng:user.lon};
     plotRoute(uLatLng,mpLatLng,user.userid,user.gRouteMode,i);
   }
-  updateBounds();
-  Gmap.fitBounds(bounds,getMapPadding());
+  Gmap.fitBounds(getBounds(),getMapPadding());
 }
 
-function updateBounds(){
+function getBounds(){
+  bounds = new google.maps.LatLngBounds();
   for (i=0;i<Users.length;i++){
     user=Users[i];
     uLatLng={lat:user.lat,lng:user.lon};
     bounds.extend(uLatLng);
   }
-  bounds.extend(mpLatLng);
+  bounds.extend(mpLatLng)
+  return bounds;
 
 }
 
@@ -219,6 +221,8 @@ function setMidpoint(){
     .then(res=> console.log(res))
     .then(error=>console.log(error))
     if (showPlaces) {nearbyPlaces();}
+    copyLink(meet_url)
+
 }
 
 function removeAddressCards(){
@@ -256,15 +260,15 @@ function populatePlaces(places){
     addressCard.addEventListener("click",
       function() {
         updateMidPoint(placeLatLng)
-        Gmap.setCenter(placeLatLng)
-        Gmap.setZoom(18)
-        Gmap.fitBounds(bounds,getMapPadding())
+        // Gmap.setCenter(placeLatLng)
+        // Gmap.setZoom(18)
+        Gmap.fitBounds(getBounds(),getMapPadding())
       },false)
 
       locationsAvailable.appendChild(addressCard)
   }
-  Gmap.setZoom(18)
-  Gmap.fitBounds(bounds,getMapPadding())
+  // Gmap.setZoom(18)
+  Gmap.fitBounds(getBounds(),getMapPadding())
 }
 
 function resetMidpoint(){
@@ -272,9 +276,9 @@ function resetMidpoint(){
   getUsers('geometric')
 }
 
-function copyInvite() {
+function copyLink(targetUrl) {
   var textArea = document.createElement("textarea");
-  textArea.value = invite_url
+  textArea.value = targetUrl
   document.body.appendChild(textArea);
   textArea.focus();
   textArea.select();
@@ -295,7 +299,7 @@ function handleDragEvent(event){
   const lng =  event.latLng.lng();
   const latLng = {lat: lat, lng: lng };
   updateMidPoint(latLng);
-  Gmap.fitBounds(bounds,getMapPadding())
+  Gmap.fitBounds(getBounds(),getMapPadding())
   // setMidpoint();
 }
 
