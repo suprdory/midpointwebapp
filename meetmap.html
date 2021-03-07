@@ -8,22 +8,19 @@
   <link rel="shortcut icon" href="/static/favicon.ico">
 <body>
 
-<div>
-  <div id=buttons>
-  <a class="mapbutton" id="meet_id">Meet Info</a>
-  <a class="mapbutton" id="add_id">Add User</a>
-  <a class="mapbutton" id="invite_id">Invite Link</a>
-  <a class="mapbutton" id="set_id">Set</a>
-  <a class="mapbutton" id="reset_id">Reset</a>
-  </div>
+<div id=buttons>
+<a class="mapbutton" id="meet_id">Meet Info</a>
+<a class="mapbutton" id="add_id">Add User</a>
+<a class="mapbutton" id="invite_id">Invite Link</a>
+<a class="mapbutton" id="set_id">Set</a>
+<a class="mapbutton" id="reset_id">Reset</a>
+</div>
 
-  <div id="map"></div>
+<div id="map"></div>
 
-  <div class="scrollmenu">
-    <!-- <div><a class='darktext'>Nearby Places</a></div> -->
-    <div id="locationList"></div>
-  </div>
-
+<div class=bottomFloat id=nearbyPlaces>
+  <a class="mapbutton" id=showPlaces>Show/Hide</a>
+  <div class="scrollmenu" id="locationList"></div>
 </div>
 
   <script src="/static/setkey.js"></script>

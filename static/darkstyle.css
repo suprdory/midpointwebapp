@@ -27,16 +27,6 @@ a.mapbutton, select.mapbutton, input.mapbutton {
   /* text-align: center; */
 }
 
-a.placecard{
-  /* width: 100%; */
-  /* padding: 12px 20px; */
-   margin: 0px 0px 0px 4px;
-  /* box-sizing: border-box; */
-  /* border: none; */
-  background-color:#FFF;
-  color:  #222;
-}
-
 #buttons {
 position: absolute;
 top: 0;
@@ -53,7 +43,7 @@ z-index: 1;
   top:0%;
   bottom:0%;
   z-index: 0;
-  /* border: 3px solid #73AD21; */
+
 }
 #latlon {
   display: none;
@@ -69,13 +59,36 @@ z-index: 1;
   font-weight: bold;
 }
 
+div.bottomFloat{
+    height:auto;
+    position: absolute;
+    bottom: 26px;
+    left: 0px;
+    right: 50px;
+    /* overflow:auto;
+    white-space: nowrap; */
+    border: 3px solid #000099;
+}
+
 div.scrollmenu {
   height:auto;
-  width:80%;
-  position: absolute;
-  bottom: 26px;
+  width:auto;
+  position: relative;
+  /* bottom: 0px;
   left: 0px;
-  right: 60px;
+  right: 0px; */
   overflow:auto;
   white-space: nowrap;
+  border: 3px solid #990000;
+}
+
+a.placecard{
+  /* width: 100%; */
+  /* padding: 12px 20px; */
+   margin: 0px 0px 0px 4px;
+  /* box-sizing: border-box; */
+  /* border: none; */
+  background-color:#FFF;
+  color:  #222;
+  border: 3px solid #009900;
 }

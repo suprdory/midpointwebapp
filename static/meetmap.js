@@ -4,6 +4,7 @@ const meetkey=urlParams.get('meetkey')
 let Gmap,Gmarker,mpLatLng,mpMarker
 let Users=[], UserMarkers=[]; Infos=[]; dirRends=[]
 const LDNlatlng = { lat: 51.474061958491355, lng: -0.09071767330169678};
+let showPlaces=false
 
 // setup DOM elements
 $("meet_id").href='meet.html?meetid='+meetid+'&meetkey='+meetkey
@@ -11,7 +12,26 @@ $("add_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
 $("invite_id").addEventListener("click", copyInvite, false);
 $("reset_id").addEventListener("click", resetMidpoint, false);
 $("set_id").addEventListener("click", setMidpoint, false);
+$("showPlaces").addEventListener("click",togglePlaces,false);
 const locationsAvailable = $('locationList');
+
+function togglePlaces() {
+  btn=$("showPlaces")
+  if(showPlaces){
+    showPlaces=false;
+    locationsAvailable.style.display="none"
+    btn.innerHTML="Show Nearby Places"
+    Gmap.fitBounds(bounds,getMapPadding())
+
+  } else {
+    showPlaces=true;
+    locationsAvailable.style.display="block"
+    nearbyPlaces()
+    btn.innerHTML="Hide Nearby Places"
+  }
+}
+
+
 
 //
 if (window.location.port==""){
@@ -132,7 +152,7 @@ function initMidPoint(latLng){
   mpMarker.addListener('dragend', handleDragEvent);
   mpLatLng=latLng
   updateRoutes();
-  nearbyPlaces();
+  if (showPlaces) {nearbyPlaces();}
 }
 
 function updateRoutes(){
@@ -179,7 +199,7 @@ function nearbyPlaces(){
 function getMapPadding(){
   // padding fro map for fitBounds from top "buttons" row and bottom "places" elements
   let buttonRect=$("buttons").getBoundingClientRect()
-  let locationRect=$("locationList").getBoundingClientRect()
+  let locationRect=$("nearbyPlaces").getBoundingClientRect()
   let infoWindowHeight = 75 // px
   mapPadding={
     top: buttonRect.bottom+infoWindowHeight,
@@ -198,7 +218,7 @@ function setMidpoint(){
     .then(data=>data.json())
     .then(res=> console.log(res))
     .then(error=>console.log(error))
-    nearbyPlaces();
+    if (showPlaces) {nearbyPlaces();}
 }
 
 function removeAddressCards(){
@@ -213,10 +233,10 @@ function populatePlaces(places){
   //display first 10 places
   places.length=10
   removeAddressCards()
-  const placesTitle = document.createElement('a');
-  placesTitle.innerHTML="Nearby Places:"
-  placesTitle.className="darktext"
-  locationsAvailable.appendChild(placesTitle)
+  // const placesTitle = document.createElement('a');
+  // placesTitle.innerHTML="Nearby Places:"
+  // placesTitle.className="darktext"
+  // locationsAvailable.appendChild(placesTitle)
 
   for (let place of places){
     const addressCard = document.createElement('div');
@@ -283,7 +303,7 @@ function updateMidPoint(latLng){
   mpLatLng=latLng
   mpMarker.setPosition(mpLatLng)
   updateRoutes();
-  nearbyPlaces();
+  if (showPlaces) {nearbyPlaces();}
 }
 
 
