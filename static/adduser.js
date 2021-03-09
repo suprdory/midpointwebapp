@@ -4,7 +4,7 @@ let Gmap,Gmarker
 
 // load gmaps api + callback initMap
 var script = document.createElement('script');
-script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&callback=initMap';
+script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key +'&libraries=places&callback=initMap';
 script.async = false;
 document.head.appendChild(script);
 
@@ -80,6 +80,50 @@ function initMap() {
     Gmarker.setMap(null);
     createMarker(latlng);
   });
+
+  const input = document.getElementById("pac-input");
+  const searchBox = new google.maps.places.SearchBox(input);
+  // Gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  // Bias the SearchBox results towards current map's viewport.
+  Gmap.addListener("bounds_changed", () => {
+    searchBox.setBounds(Gmap.getBounds());
+  });
+  let markers = [];
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener("places_changed", () => {
+    const places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
+    // Clear out the old markers.
+    markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    // For each place, get the icon, name and location.
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach((place) => {
+      if (!place.geometry || !place.geometry.location) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+
+      setusercoords(place.geometry.location)
+      Gmarker.setMap(null);
+      createMarker(place.geometry.location);
+
+    });
+
+    Gmap.fitBounds(bounds);
+  });
+
   getLocation()
 }
 

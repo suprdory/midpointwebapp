@@ -10,7 +10,7 @@ body {
   font-family: roboto, sans-serif;
 }
 
-a.mapbutton, select.mapbutton, input.mapbutton {
+a.mapbutton, select.mapbutton, input.mapbutton, #pac-input {
   /* width: 100%; */
   padding: 4px 4px;
   margin: 4px 4px 4px 4px;
@@ -91,4 +91,17 @@ a.placecard{
   background-color:#FFF;
   color:  #222;
   /* border: 3px solid #009900; */
+}
+
+#myloc {
+  position: absolute;
+  bottom: 120px;
+  right: 10px;
+  z-index:1
+}
+
+#pac-input {
+  text-overflow: ellipsis;
+  /* width: 400px; */
+  /* border: 3px solid #0000FF; */
 }
