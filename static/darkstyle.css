@@ -10,22 +10,35 @@ body {
   font-family: roboto, sans-serif;
 }
 
-a.mapbutton, select.mapbutton, input.mapbutton, #pac-input {
-  /* width: 100%; */
+/* a.mapbutton, select.mapbutton, input.mapbutton, #pac-input { */
+.mapbutton, #pac-input {
   padding: 4px 4px;
   margin: 4px 4px 4px 4px;
   /* box-sizing: border-box; */
   border: none;
-  /* background-color: #222;
-  color: #999; */
   background-color:#FFF;
   color:  #222;
-
   text-decoration: none;
   font-size: 16px;
-   display: inline-block;
+  display: inline-block;
   /* text-align: center; */
 }
+
+.mapbutton.inactive{
+    color:  #555;
+}
+.mapbuttonnarrow{
+    padding: 4px 4px;
+    margin: 4px 4px 4px 4px;
+    border: none;
+    background-color:#FFF;
+    color:  #222;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    width: 90px;
+}
+
 
 #buttons {
 position: absolute;

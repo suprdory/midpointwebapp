@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>MidPoint/Meets</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="/static/globalvars.js"></script>
-  <link rel="stylesheet"  href="/static/darkstyle.css">
+  <link rel="stylesheet" href="/static/darkstyle.css">
   <link rel="shortcut icon" href="/static/favicon.ico">
 </head>
+
 <body>
-<h1>Meet Info </h1>
-<h2>Meet</h2>
-<table style="width:100%" id='meetTable'>
+  <h1>Meet Info </h1>
+  <h2>Meet</h2>
+  <table style="width:100%" id='meetTable'>
     <tr>
       <td>ID</td>
       <td>Name</td>
       <td>Date</td>
       <td>MP Lon</td>
       <td>MP Lat</td>
-      </tr>
-</table>
+    </tr>
+  </table>
 
-<a class=mapbutton id=meetmap_id>Meet Map</a>
-<a class=mapbutton id=adduser_id>Add User</a>
-<a class=mapbutton  onclick="deletemeet(meetid)">Delete Meet</a>
+  <a class=mapbutton id=meetmap_id>Meet Map</a>
+  <a class=mapbutton id=adduser_id>Add User</a>
+  <a class=mapbutton onclick="deletemeet(meetid)">Delete Meet</a>
 
-<h2>Users</h2>
-<table style="width:100%" id='userTable'>
-  <tr>
-    <td>ID</td>
-    <td>Name</td>
-    <td>Lon</td>
-    <td>Lat</td>
-    <td>Duration</td>
-    <td>Distance</td>
-    <td>Mode</td>
+  <h2>Users</h2>
+  <table style="width:100%" id='userTable'>
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+      <td>Lon</td>
+      <td>Lat</td>
+      <td>Duration</td>
+      <td>Distance</td>
+      <td>Mode</td>
     </tr>
   </table>
 
 </body>
 <script src="/static/meet.js"></script>
+
 </html>
 <br>
 <!-- <a href='/'>Select Meet</a> -->
