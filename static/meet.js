@@ -120,7 +120,7 @@ function populateUserTable(data){
     console.log(d.gRouteMode);
     // gModeInp.value=d.gRouteMode
     gMode.appendChild(gModeInp)
-    document.getElementById("gMode"+d.userid).value =d.gRouteMode
+    document.getElementById("gMode"+d.userid).value=d.gRouteMode
 
     var uUpdate = row.insertCell(-1);
     var udel = row.insertCell(-1);

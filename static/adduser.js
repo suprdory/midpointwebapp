@@ -83,14 +83,11 @@ function initMap() {
 
   const input = document.getElementById("pac-input");
   const searchBox = new google.maps.places.SearchBox(input);
-  // Gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
   // Bias the SearchBox results towards current map's viewport.
   Gmap.addListener("bounds_changed", () => {
     searchBox.setBounds(Gmap.getBounds());
   });
   let markers = [];
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
   searchBox.addListener("places_changed", () => {
     const places = searchBox.getPlaces();
 
@@ -115,7 +112,7 @@ function initMap() {
         bounds.extend(place.geometry.location);
       }
 
-      setusercoords(place.geometry.location)
+      setusercoords(latLng2json(place.geometry.location))
       Gmarker.setMap(null);
       createMarker(place.geometry.location);
 
@@ -145,10 +142,16 @@ function handleDragEvent(event) {
   setusercoords(latlng);
 }
 
-function setusercoords(latlng){
-    $('lat_id').value = latlng.lat
-    $('lon_id').value = latlng.lng
-  }
+function latLng2json(latLng){
+    const latLngjson = {lat: latLng.lat(), lng: latLng.lng() };
+    return latLngjson;
+}
+
+function setusercoords(latLng){
+    console.log(latLng)
+    $('lat_id').value = latLng.lat
+    $('lon_id').value = latLng.lng
+}
 
 function geocentre(position){
   const lat = position.coords.latitude;
