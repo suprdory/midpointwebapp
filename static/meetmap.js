@@ -186,8 +186,7 @@ function initMidPoint(latLng) {
     mpLatLng = latLng
     updateRoutes();
     midPointExists = true
-    $("showPlaces").classList.remove("mapbutton.inactive")
-    $("showPlaces").classList.add("mapbutton")
+    $("showPlaces").classList.remove("inactive")
     if (showPlaces) {
         nearbyPlaces();
     }

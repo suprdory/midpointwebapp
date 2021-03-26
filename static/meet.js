@@ -87,21 +87,21 @@ function populateUserTable(data){
     var usernametab = row.insertCell(-1);
 
     let uNameInput = document.createElement("input")
-    uNameInput.className = "mapbuttonnarrow"
-    // uNameInput.classList.add('narrow')
+    uNameInput.className = "mapbutton"
+    uNameInput.classList.add('narrow')
     console.log(uNameInput.classList)
     uNameInput.value = d.username
     uNameInput.id = "username" + d.userid;
     usernametab.appendChild(uNameInput)
 
-    var ulon = row.insertCell(-1);
-    var ulat = row.insertCell(-1);
+    // var ulon = row.insertCell(-1);
+    // var ulat = row.insertCell(-1);
     var udur = row.insertCell(-1);
     var udist = row.insertCell(-1);
 
     var gMode = row.insertCell(-1);
     let gModeInp = document.createElement("select")
-    gModeInp.className = 'mapbuttonnarrow'
+    gModeInp.className = 'mapbutton narrow'
     gModeInp.id="gMode"+d.userid
 
     for (let gmode of gRouteModes) {
@@ -117,8 +117,8 @@ function populateUserTable(data){
     var udel = row.insertCell(-1);
 
     useridtab.innerHTML = d.userid;
-    ulon.innerHTML = parseFloat(d.lon).toFixed(4);
-    ulat.innerHTML = parseFloat(d.lat).toFixed(4);
+    // ulon.innerHTML = parseFloat(d.lon).toFixed(4);
+    // ulat.innerHTML = parseFloat(d.lat).toFixed(4);
     udur.innerHTML =d.gRouteDuration;
     udist.innerHTML = d.gRouteDistance;
 
