@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>MidPoint/Meet Map</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="/static/globalvars.js"></script>
-  <link rel="stylesheet"  href="/static/darkstyle.css">
-  <link rel="shortcut icon" href="/static/favicon.ico">
+    <title>MidPoint/Meet Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/globalvars.js"></script>
+    <link rel="stylesheet" href="/static/darkstyle.css">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+
 <body>
 
-<div id=buttons>
-<a class="mapbutton" id="meet_id">Meet Info</a>
-<a class="mapbutton" id="add_id">Add User</a>
-<a class="mapbutton" id="invite_id">Invite Link</a>
-<a class="mapbutton" id="reset_id">Recalc</a>
-<a class="mapbutton" id="set_id">Save</a>
+    <div id=buttons>
+        <!-- <a class="mapbutton" id="meet_id">Edit Meet</a> -->
+        <a class="mapbutton" id="add_id">Add a Friend</a>
+        <a class="mapbutton" id="invite_id">Send Invite</a>
+        <!-- <a class="mapbutton" id="reset_id">Recalc</a> -->
+        <a class="mapbutton" id="set_id">Share Meeting Point</a>
 
-</div>
+    </div>
 
-<div id="map"></div>
+    <img id=reset_id width="40px" src="/static/refresh-black-48dp.svg" />
 
-<div class=bottomFloat id=nearbyPlaces>
-  <a class="mapbutton inactive" id=showPlaces>Show Nearby Places</a>
-  <div class="scrollmenu" id="locationList"></div>
-</div>
-  <script src="/static/setkeylocal.js"></script>
-  <script src="/static/setkey.js"></script>
-  <script src="/static/meetmap.js"></script>
+
+    <div id="map"></div>
+
+    <div class=bottomFloat id=nearbyPlaces>
+        <a class="mapbutton inactive" id=showPlaces>Show Nearby Places</a>
+        <div class="scrollmenu" id="locationList"></div>
+    </div>
+
+
+    <img id=meet_id width="40px" src="/static/settings-black-48dp.svg" />
+
+
+    <script src="/static/setkeylocal.js"></script>
+    <script src="/static/setkey.js"></script>
+    <script src="/static/meetmap.js"></script>
 
 </body>
+
 </html>

@@ -22,7 +22,10 @@ let showPlaces = false
 let midPointExists = false
 
 // setup DOM elements
-$("meet_id").href = 'meet.html?meetid=' + meetid + '&meetkey=' + meetkey
+$("meet_id").addEventListener("click", function() {
+    window.location.href ='meet.html?meetid=' + meetid + '&meetkey=' + meetkey
+}, false);
+
 $("add_id").href = 'adduser.html?meetid=' + meetid + '&meetkey=' + meetkey
 $("invite_id").addEventListener("click", function() {
     copyLink(invite_url)
@@ -337,7 +340,7 @@ function copyLink(targetUrl) {
         var successful = document.execCommand('copy');
         var msg = successful ? 'successful' : 'unsuccessful';
         console.log('Copying text command was ' + msg);
-        alert("Copied invite link: " + textArea.value);
+        alert("Copied link: " + textArea.value);
     } catch (err) {
         console.log('Oops, unable to copy');
     }

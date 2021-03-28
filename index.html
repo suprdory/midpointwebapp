@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>MidPoint/New Meet</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="/static/globalvars.js"></script>
-  <link rel="shortcut icon" href="/static/favicon.ico">
-  <link rel="stylesheet"  href="/static/darkstyle.css">
-  <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+    <title>MidPoint/Create a Meet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/globalvars.js"></script>
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/darkstyle.css">
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 
 </head>
 
 <body>
-  <h1> New Meet </h1>
-  <p id=current></p>
-  <form onsubmit="return false">
-      <!-- <form onsubmit="return false"> -->
-    <!-- <label for="meetname_id">Meet Name</label> -->
-    <input class=mapbutton type="text" id="meetname_id" name="meetname" placeholder="Meet Name">
-    <!-- <label for="password_id">Password</label>
-    <input type="password" id="password_id" name="password"> -->
-    <!-- <div class="g-recaptcha" data-sitekey="6LeNDm8aAAAAAP20uXdVkCdw0jPeiiD8jAbn-jlq"></div> -->
-    <a class=mapbutton id=submit_id>Submit</button></a>
-  </form>
-  <!-- <a class=mapbutton onclick="newmeet()">Submit</button></a> -->
-
+    <div class="center-text titleBlock">
+        <h1>MidPoint</h1>
+    </div>
+    <div class="center-text initBlock">
+        <h2> Create a Meet </h2>
+        <p id=current></p>
+        <form autocomplete="off" onsubmit="return false">
+            <!-- <form onsubmit="return false"> -->
+            <!-- <label for="meetname_id">Meet Name</label> -->
+            <input style="width:250px" class="mapbutton" type="text" id="meetname_id"
+             name="meetname" placeholder="Choose a name for your meet..."
+             autocomplete="off">
+            <br>
+            <!-- <label for="password_id">Password</label>
+            <input type="password" id="password_id" name="password"> -->
+            <!-- <div class="g-recaptcha" data-sitekey="6LeNDm8aAAAAAP20uXdVkCdw0jPeiiD8jAbn-jlq"></div> -->
+            <a class="mapbutton" id=submit_id>Create</button></a>
+        </form>
+        <!-- <a class=mapbutton onclick="newmeet()">Submit</button></a> -->
+    </div>
+    <div id="map"></div>
 </body>
+
+<script src="/static/setkeylocal.js"></script>
+<script src="/static/setkey.js"></script>
 <script src="/static/newmeet.js"></script>
+
 </html>

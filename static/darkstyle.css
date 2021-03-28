@@ -6,8 +6,29 @@ html {
 }
 body {
   background: #333;
-  color: #bbb;
+  color: #eee;
   font-family: roboto, sans-serif;
+}
+
+
+.center-text {
+  text-align: center;
+  z-index: 1;
+}
+
+.titleBlock{
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    color: red;
+}
+
+.initBlock{
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
 }
 
 /* a.mapbutton, select.mapbutton, input.mapbutton, #pac-input { */
@@ -47,7 +68,7 @@ z-index: 1;
   right:0%;
   top:0%;
   bottom:0%;
-  z-index: 0;
+  z-index: -1;
 
 }
 #latlon {
@@ -98,9 +119,16 @@ a.placecard{
   /* border: 3px solid #009900; */
 }
 
-#myloc {
+#myloc, #reset_id{
   position: absolute;
   bottom: 120px;
+  right: 10px;
+  z-index:1
+}
+
+#meet_id{
+  position: absolute;
+  top: 10px;
   right: 10px;
   z-index:1
 }
