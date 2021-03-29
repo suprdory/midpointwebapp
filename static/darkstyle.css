@@ -1,92 +1,83 @@
 html {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
 }
+
 body {
-  background: #333;
-  color: #eee;
-  font-family: roboto, sans-serif;
+    background: #333;
+    color: #eee;
+    font-family: roboto, sans-serif;
 }
 
-
-.center-text {
-  text-align: center;
-  z-index: 1;
-}
-
-.titleBlock{
-    position: absolute;
-    top: 10%;
-    width: 100%;
+.container {
+    margin: 10% auto;
+    /* border: 3px solid #0000FF; */
     text-align: center;
-    color: red;
 }
 
-.initBlock{
-    position: absolute;
-    top: 30%;
-    width: 100%;
+#fp_title_id {
     text-align: center;
+    color: #22EE66;
+    margin: 10%;
 }
 
 /* a.mapbutton, select.mapbutton, input.mapbutton, #pac-input { */
 .mapbutton, #pac-input {
-  padding: 4px 4px;
-  margin: 4px 4px 4px 4px;
-  /* box-sizing: border-box; */
-  border: none;
-  background-color:#FFF;
-  color:  #222;
-  text-decoration: none;
-  font-size: 16px;
-  display: inline-block;
-  /* text-align: center; */
+    padding: 4px 4px;
+    margin: 4px 4px 4px 4px;
+    /* box-sizing: border-box; */
+    border: none;
+    background-color: #FFF;
+    color: #222;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    /* text-align: center; */
 }
 
-.mapbutton.inactive{
-    color:  #999;
+.mapbutton.inactive {
+    color: #999;
 }
-.mapbutton.narrow{
+
+.mapbutton.narrow {
     width: 90px;
 }
 
-
 #buttons {
-position: absolute;
-top: 0;
-right: 0;
-left: 0;
-/* border: 3px solid #0000FF; */
-z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    /* border: 3px solid #0000FF; */
+    z-index: 1;
 }
 
 #map {
-  position: absolute;
-  left:0%;
-  right:0%;
-  top:0%;
-  bottom:0%;
-  z-index: -1;
-
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    z-index: -1;
 }
+
 #latlon {
-  display: none;
-  position
+    display: none;
+    position
 }
-
 
 .darktext {
-  margin: 5px 5px 5px 5px;
-  /* color: #333; */
-  background-color:#FFF;
-  color:  #222;
-  font-weight: bold;
+    margin: 5px 5px 5px 5px;
+    /* color: #333; */
+    background-color: #FFF;
+    color: #222;
+    font-weight: bold;
 }
 
-div.bottomFloat{
-    height:auto;
+div.bottomFloat {
+    height: auto;
     position: absolute;
     bottom: 26px;
     left: 0px;
@@ -97,44 +88,44 @@ div.bottomFloat{
 }
 
 div.scrollmenu {
-  height:auto;
-  width:auto;
-  position: relative;
-  /* bottom: 0px;
+    height: auto;
+    width: auto;
+    position: relative;
+    /* bottom: 0px;
   left: 0px;
   right: 0px; */
-  overflow:auto;
-  white-space: nowrap;
-  /* border: 3px solid #990000; */
+    overflow: auto;
+    white-space: nowrap;
+    /* border: 3px solid #990000; */
 }
 
-a.placecard{
-  /* width: 100%; */
-  /* padding: 12px 20px; */
-   margin: 0px 0px 0px 4px;
-  /* box-sizing: border-box; */
-  /* border: none; */
-  background-color:#FFF;
-  color:  #222;
-  /* border: 3px solid #009900; */
+a.placecard {
+    /* width: 100%; */
+    /* padding: 12px 20px; */
+    margin: 0px 0px 0px 4px;
+    /* box-sizing: border-box; */
+    /* border: none; */
+    background-color: #FFF;
+    color: #222;
+    /* border: 3px solid #009900; */
 }
 
-#myloc, #reset_id{
-  position: absolute;
-  bottom: 120px;
-  right: 10px;
-  z-index:1
+#myloc, #reset_id {
+    position: absolute;
+    bottom: 120px;
+    right: 10px;
+    z-index: 1
 }
 
-#meet_id{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index:1
+#meet_id {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1
 }
 
 #pac-input {
-  text-overflow: ellipsis;
-  /* width: 400px; */
-  /* border: 3px solid #0000FF; */
+    text-overflow: ellipsis;
+    /* width: 400px; */
+    /* border: 3px solid #0000FF; */
 }

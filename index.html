@@ -12,25 +12,18 @@
 </head>
 
 <body>
-    <div class="center-text titleBlock">
-        <h1>MidPoint</h1>
-    </div>
-    <div class="center-text initBlock">
+    <!-- <div class="center-text titleBlock"> -->
+        <h1 id=title_id>Midpoint</h1>
+    <!-- </div> -->
+    <div class="container">
         <h2> Create a Meet </h2>
         <p id=current></p>
-        <form autocomplete="off" onsubmit="return false">
-            <!-- <form onsubmit="return false"> -->
-            <!-- <label for="meetname_id">Meet Name</label> -->
             <input style="width:250px" class="mapbutton" type="text" id="meetname_id"
              name="meetname" placeholder="Choose a name for your meet..."
              autocomplete="off">
             <br>
-            <!-- <label for="password_id">Password</label>
-            <input type="password" id="password_id" name="password"> -->
-            <!-- <div class="g-recaptcha" data-sitekey="6LeNDm8aAAAAAP20uXdVkCdw0jPeiiD8jAbn-jlq"></div> -->
             <a class="mapbutton" id=submit_id>Create</button></a>
         </form>
-        <!-- <a class=mapbutton onclick="newmeet()">Submit</button></a> -->
     </div>
     <div id="map"></div>
 </body>
