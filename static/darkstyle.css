@@ -20,6 +20,10 @@ body {
     top: 20px;
 }
 
+#enterName {
+    display: none;
+}
+
 .container {
     margin: 10% auto;
     /* border: 3px solid #0000FF; */
@@ -135,6 +139,6 @@ a.placecard {
 
 #pac-input {
     text-overflow: ellipsis;
-    /* width: 400px; */
+    width: 280px;
     /* border: 3px solid #0000FF; */
 }

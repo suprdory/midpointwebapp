@@ -12,8 +12,14 @@
 <body>
     <div id="buttons">
         <div><a class=darktext id=title_id></a></div>
-        <div>
-            <input class=mapbutton type="text" placeholder="Enter User Name" id="username_id" autocomplete="auto" name="username">
+        <div id="chooseStart">
+            <input id="pac-input" class="controls" type="text" placeholder="Enter starting point or click on map..." />
+            <br>
+            <a class=mapbutton id="done_id">Next</a>
+        </div>
+
+        <div id=enterName>
+            <input class=mapbutton autocomplete="off" type="text" placeholder="Enter User Name" id="username_id" autocomplete="auto" name="username">
             <select class=mapbutton name="gmode" id="gmode_id">
                 <option value="WALKING">Walking</option>
                 <option value="BICYCLING">Cycling</option>
@@ -24,7 +30,6 @@
             <a class=mapbutton id="join_id">Join!</a>
             <a class=mapbutton id="view_id">View</a>
         </div>
-        <div><input id="pac-input" class="controls" type="text" placeholder="Search Box" /></div>
     </div>
     <img id=myloc width="40px" src="/static/my_location_48px.svg" onclick='getLocation()' />
 
