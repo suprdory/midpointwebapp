@@ -40,6 +40,15 @@ p, h1,h2,h3 {
     margin: 10%;
 }
 
+.topbuttonscontainer {
+  display: flex;
+  background: white;
+  opacity: 0.9;
+}
+.topbuttonscontainer.space-around {
+  justify-content: space-around;
+}
+
 /* a.mapbutton, select.mapbutton, input.mapbutton, #pac-input { */
 .mapbutton, #pac-input {
     padding: 4px 4px;
@@ -68,6 +77,7 @@ p, h1,h2,h3 {
     right: 0;
     left: 0;
     /* border: 3px solid #0000FF; */
+    background: white;
     z-index: 1;
 }
 
@@ -153,19 +163,19 @@ a.placecard {
     /* border: 3px solid #009900; */
 }
 
-#myloc, #reset_id {
+#myloc {
     position: absolute;
     bottom: 120px;
     right: 10px;
     z-index: 2
 }
 
-#meet_id {
+/* #meet_id {
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 1
-}
+} */
 
 #pac-input {
     text-overflow: ellipsis;
