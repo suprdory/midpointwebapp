@@ -275,7 +275,12 @@ function setMidpoint() {
     if (showPlaces) {
         nearbyPlaces();
     }
-    copyLink(meet_url)
+
+    gmap_url='http://www.google.com/maps/place/' +
+    mpLatLng.lat + ',' +
+    mpLatLng.lng
+
+    copyLink(gmap_url)
 
 }
 

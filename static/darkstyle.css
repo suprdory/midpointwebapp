@@ -11,6 +11,10 @@ body {
     font-family: roboto, sans-serif;
 }
 
+p, h1,h2,h3 {
+        margin: 4px 4px 4px 4px;
+}
+
 #favlogo {
 
     display: block;
@@ -81,6 +85,32 @@ body {
     position
 }
 
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    opacity: 1.0;
+    background: #555555;
+    z-index: 2;
+    /* Just to visualize the extent */
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 500;
+    right: 0;
+    overflow: auto;
+    opacity: 1.0;
+    background: #555555;
+    z-index: 2;
+    /* Just to visualize the extent */
+}
+
 .darktext {
     margin: 5px 5px 5px 5px;
     /* color: #333; */
@@ -127,7 +157,7 @@ a.placecard {
     position: absolute;
     bottom: 120px;
     right: 10px;
-    z-index: 1
+    z-index: 2
 }
 
 #meet_id {

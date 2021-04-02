@@ -17,7 +17,7 @@ $("username_id").addEventListener("keypress", function(event) {
 });
 
 $("done_id").addEventListener("click", function() {
-    $('enterName').style.display = "inline-block";
+    $('enterName').style.display = "block";
     $('chooseStart').style.display = "none";
 
 }, false);
@@ -110,6 +110,7 @@ function initMap() {
         streetViewControl: false,
         mapTypeControl: false,
         fullscreenControl: false,
+        clickableIcons: false,
     });
     createMarker(LDNlatlng)
     Gmap.addListener("click", (mapsMouseEvent) => {
