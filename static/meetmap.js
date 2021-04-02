@@ -26,7 +26,9 @@ $("meet_id").addEventListener("click", function() {
     window.location.href ='meet.html?meetid=' + meetid + '&meetkey=' + meetkey
 }, false);
 
-$("add_id").href = 'adduser.html?meetid=' + meetid + '&meetkey=' + meetkey
+$("add_id").addEventListener("click", function() {
+    window.location.href = 'adduser.html?meetid=' + meetid + '&meetkey=' + meetkey
+}, false);
 $("invite_id").addEventListener("click", function() {
     copyLink(invite_url)
 }, false);
@@ -245,7 +247,7 @@ function nearbyPlaces() {
 
 function getMapPadding() {
     // padding fro map for fitBounds from top "buttons" row and bottom "places" elements
-    let buttonRect = $("buttons").getBoundingClientRect()
+    let buttonRect = $("topbuttons").getBoundingClientRect()
     let locationRect = $("nearbyPlaces").getBoundingClientRect()
     let infoWindowHeight = 75 // px
     mapPadding = {

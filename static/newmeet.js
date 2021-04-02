@@ -2,8 +2,8 @@ document.getElementById("meetname_id").addEventListener("keypress", function(eve
   if (event.keyCode == 13) {
        newmeet();
    }
-});
-document.getElementById("submit_id").addEventListener("click",newmeet)
+},{passive: true});
+document.getElementById("submit_id").addEventListener("click",newmeet,{passive: true})
 
 function newmeet() {
   // event.preventDefault()
