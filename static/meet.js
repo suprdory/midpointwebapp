@@ -8,6 +8,11 @@ let gRouteModes = [
     {text:'Driving', gName:'DRIVING'}
 ]
 
+let mptypes = [
+  { text: 'Temporal', val: 'temporal' },
+  { text: 'Spatial', val: 'spatial' },
+]
+
 $("adduser_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
 $("meetmap_id").href='meetmap.html?meetid='+meetid+'&meetkey='+meetkey
 
@@ -67,14 +72,39 @@ function populateMeetTable(data){
   var meetidtab = row.insertCell(0);
   var meetnametab = row.insertCell(1);
   var meetdate = row.insertCell(2);
-  var mplon = row.insertCell(3);
-  var mplat = row.insertCell(4);
+
+  var mptypeSel = row.insertCell(3);
+  var meetUpdate = row.insertCell(4);
+
+  let mptypeInp = document.createElement("select")
+  mptypeInp.className = 'mapbutton'
+  mptypeInp.id = "mptype"
+
+  for (let mptype of mptypes) {
+    var option = document.createElement("option");
+    option.text = mptype.text;
+    option.value = mptype.val;
+    mptypeInp.add(option)
+  }
+  mptypeInp.value = data.mptype
+  mptypeSel.appendChild(mptypeInp)
+  // var mplon = row.insertCell(3);
+  // var mplat = row.insertCell(4);
 
   meetidtab.innerHTML = data.meetid;
   meetnametab.innerHTML = data.meetname;
   meetdate.innerHTML = data.date;
-  mplon.innerHTML = parseFloat(data.midpoint_lon).toFixed(4);
-  mplat.innerHTML = parseFloat(data.midpoint_lat).toFixed(4);
+
+  let ubtn = document.createElement("a");
+  ubtn.className = 'mapbutton'
+  ubtn.textContent = "Update"
+  ubtn.id = "btnUpdate";
+  ubtn.addEventListener("click", function () {updateMeet(data.meetid) });
+  meetUpdate.appendChild(ubtn)
+
+  // mptype.innerHTML = data.mptype;
+  // mplon.innerHTML = parseFloat(data.midpoint_lon).toFixed(4);
+  // mplat.innerHTML = parseFloat(data.midpoint_lat).toFixed(4);
 }
 
 function populateUserTable(data){
@@ -127,7 +157,7 @@ function populateUserTable(data){
     ubtn.textContent = "Update"
     ubtn.id = "btnUpdate" + d.userid;
     ubtn.addEventListener("click",function(){updateUser(d.userid)});
-    udel.appendChild(ubtn)
+    uUpdate.appendChild(ubtn)
 
     let btn = document.createElement("a");
     btn.className = 'mapbutton'
@@ -139,7 +169,6 @@ function populateUserTable(data){
 }
 
 function updateUser(userid) {
-
   patchdata={
     username:$("username"+userid).value,
     gRouteMode:$("gMode"+userid).value,
@@ -152,6 +181,23 @@ function updateUser(userid) {
     headers:{'Content-Type': 'application/json; charset=utf-8'}})
   .then(data=>{return data.json()})
   .then(res=>{console.log(res)})
+  // .then(error=>{console.log(error)})
+  // window.location.href = "/web/meet/" + meet;
+}
+
+function updateMeet(meetid) {
+  patchdata = {
+    mptype: $("mptype").value,
+  };
+  console.log(patchdata)
+  url = '/meet/' + meetid.toString() + '?meetkey=' + meetkey;
+  fetch(baseUrl + url, {
+    method: 'PATCH',
+    body: JSON.stringify(patchdata),
+    headers: { 'Content-Type': 'application/json; charset=utf-8' }
+  })
+    .then(data => { return data.json() })
+    .then(res => { console.log(res) })
   // .then(error=>{console.log(error)})
   // window.location.href = "/web/meet/" + meet;
 }

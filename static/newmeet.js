@@ -8,10 +8,14 @@ document.getElementById("submit_id").addEventListener("click",newmeet,{passive: 
 function newmeet() {
   // event.preventDefault()
   var mn = document.getElementById("meetname_id").value;
+  var mptype = document.getElementById("mptype-select").value;
   if (mn=="") {
     alert("Enter meet name")
   } else {
-    newmeetdata={meetname:mn};
+    newmeetdata={
+      meetname:mn,
+      mptype:mptype
+    };
     // var pw = document.getElementById("password_id").value;
     // url='meet' + '?pw=' + pw;
     url='meet'

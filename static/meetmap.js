@@ -334,7 +334,8 @@ function populatePlaces(places) {
 
 function resetMidpoint() {
     mpMarker.setMap(null);
-    getUsers('geometric')
+    // getUsers('geometric')
+    getUsers('temporal')
 }
 
 function copyLink(targetUrl) {
