@@ -9,7 +9,7 @@ if (window.location.port == "") {
     meet_url = window.location.hostname + ":" + window.location.port + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 }
 
-let Gmap, Gmarker, mpLatLng, mpMarker
+let Gmap, Gmarker, mpLatLng, mpMarker,mpType
 let Users = [],
     UserMarkers = [];
 Infos = [];
@@ -71,8 +71,26 @@ function initMap() {
         fullscreenControl: false,
     });
     // Gmap.setPadding(0,100,0,100);
+    getMeet()
     getUsers('stored')
+
     // getUsers(meetid);
+}
+
+function getMeet() {
+    url = 'meet/' + meetid + '?meetkey=' + meetkey
+    json = fetch(baseUrl + url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    })
+        .then(resp => resp.json())
+        .then(data => processMeet(data))
+}
+
+function processMeet(data) {
+    mpType=data.mptype;
 }
 
 function clearUserMarkers() {
@@ -335,7 +353,8 @@ function populatePlaces(places) {
 function resetMidpoint() {
     mpMarker.setMap(null);
     // getUsers('geometric')
-    getUsers('temporal')
+
+    getUsers(mpType)
 }
 
 function copyLink(targetUrl) {
