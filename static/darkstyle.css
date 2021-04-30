@@ -37,8 +37,14 @@ p, h1,h2,h3 {
 
 #fp_title_id {
     text-align: center;
-    color: #22EE66;
+    color: #00d37b;
     margin: 10%;
+}
+
+#fp_text {
+    /* text-align: center; */
+    color: #ffffff;
+    /* margin: 10%; */
 }
 
 .topbuttonscontainer {
@@ -55,9 +61,9 @@ p, h1,h2,h3 {
     padding: 4px 4px;
     margin: 4px 4px 4px 4px;
     /* box-sizing: border-box; */
-    border: none;
+    border: 1px solid #000000;
     background-color: #FFF;
-    color: #222;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 16px;
     display: inline-block;
@@ -93,7 +99,6 @@ p, h1,h2,h3 {
 
 #latlon {
     display: none;
-    position
 }
 
 .fullscreen {
@@ -104,9 +109,9 @@ p, h1,h2,h3 {
     right: 0;
     overflow: auto;
     opacity: 1.0;
-    background: #555555;
+    /* background: #555555; */
+    background: #ffffff;
     z-index: 2;
-    /* Just to visualize the extent */
 }
 
 .topbar {
@@ -120,7 +125,7 @@ p, h1,h2,h3 {
     /* background: #555555; */
     background: #ffffff;
     z-index: 2;
-    /* Just to visualize the extent */
+
 }
 
 .darktext {
@@ -182,5 +187,5 @@ a.placecard {
 #pac-input {
     text-overflow: ellipsis;
     width: 280px;
-    /* border: 3px solid #0000FF; */
+    border: 1px solid #000000;
 }
