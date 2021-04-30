@@ -117,7 +117,8 @@ p, h1,h2,h3 {
     right: 0;
     overflow: auto;
     opacity: 1.0;
-    background: #555555;
+    /* background: #555555; */
+    background: #ffffff;
     z-index: 2;
     /* Just to visualize the extent */
 }
