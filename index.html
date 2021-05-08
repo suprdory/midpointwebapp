@@ -18,15 +18,15 @@
     <div class="container">
         <h2 id=fp_text> Create a Meet </h2>
         <p id=current></p>
-            <input style="width:250px" class="mapbutton" type="text" id="meetname_id"
+            <input tabindex=1 autofocus style="width:250px" class="mapbutton noclick" type="text" id="meetname_id"
              name="meetname" placeholder="Choose a name for your meet..."
              autocomplete="off">
             <br>
-            <select name="mptype" id="mptype-select" class="mapbutton">
+            <select tabindex=2 name="mptype" id="mptype-select" class="mapbutton noclick">
                 <option value="temporal"> Temporal</option>
                 <option value="spatial"> Spatial</option>
             </select><br>
-            <a class="mapbutton" id=submit_id>Create</button></a>
+            <a tabindex=3 class="mapbutton" id=submit_id>Create</button></a>
         </form>
     </div>
     <div id="map"></div>

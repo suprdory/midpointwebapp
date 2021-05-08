@@ -77,7 +77,7 @@ function populateMeetTable(data){
   var meetUpdate = row.insertCell(4);
 
   let mptypeInp = document.createElement("select")
-  mptypeInp.className = 'mapbutton'
+  mptypeInp.className = 'mapbutton noclick'
   mptypeInp.id = "mptype"
 
   for (let mptype of mptypes) {
@@ -117,7 +117,7 @@ function populateUserTable(data){
     var usernametab = row.insertCell(-1);
 
     let uNameInput = document.createElement("input")
-    uNameInput.className = "mapbutton"
+    uNameInput.className = "mapbutton noclick"
     uNameInput.classList.add('narrow')
     console.log(uNameInput.classList)
     uNameInput.value = d.username
@@ -131,7 +131,7 @@ function populateUserTable(data){
 
     var gMode = row.insertCell(-1);
     let gModeInp = document.createElement("select")
-    gModeInp.className = 'mapbutton narrow'
+    gModeInp.className = 'mapbutton narrow noclick'
     gModeInp.id="gMode"+d.userid
 
     for (let gmode of gRouteModes) {

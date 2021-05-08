@@ -19,7 +19,8 @@ $("username_id").addEventListener("keypress", function(event) {
 $("done_id").addEventListener("click", function() {
     $('enterName').style.display = "block";
     $('chooseStart').style.display = "none";
-
+    $('myloc').style.display = "none";
+    $('username_id').focus();
 }, false);
 
 getMeet(meetid);
@@ -95,7 +96,9 @@ function mapClickHandler(mapsMouseEvent) {
         lng: lng
     }
     setusercoords(latlng)
-    Gmarker.setMap(null);
+    if(Gmarker){
+        Gmarker.setMap(null);
+    }
     createMarker(latlng);
 }
 
@@ -105,14 +108,14 @@ function initMap() {
         lng: -0.09071767330169678
     };
     Gmap = new google.maps.Map(document.getElementById("map"), {
-        zoom: 14,
+        zoom: 10,
         center: LDNlatlng,
         streetViewControl: false,
         mapTypeControl: false,
         fullscreenControl: false,
         clickableIcons: false,
     });
-    createMarker(LDNlatlng)
+    // createMarker(LDNlatlng)
     Gmap.addListener("click", (mapsMouseEvent) => {
         mapClickHandler(mapsMouseEvent)
     });
@@ -149,7 +152,9 @@ function initMap() {
             }
 
             setusercoords(latLng2json(place.geometry.location))
-            Gmarker.setMap(null);
+            if(Gmarker){
+                Gmarker.setMap(null);
+            }
             createMarker(place.geometry.location);
 
         });
@@ -157,7 +162,6 @@ function initMap() {
         Gmap.fitBounds(bounds);
     });
 
-    getLocation()
 }
 
 function createMarker(latlng) {
@@ -203,7 +207,10 @@ function geocentre(position) {
         lng
     }
     Gmap.setCenter(latlng)
-    Gmarker.setMap(null);
+    Gmap.setZoom(15)
+    if (Gmarker){
+        Gmarker.setMap(null);
+    }
     createMarker(latlng)
     setusercoords(latlng)
 }

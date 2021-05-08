@@ -70,6 +70,16 @@ p, h1,h2,h3 {
     /* text-align: center; */
 }
 
+.mapbutton:active {
+    background-color: rgb(0, 0, 0);
+    color: #FFF;
+}
+
+.mapbutton.noclick:active {
+    background-color: #FFF;
+    color: rgb(0, 0, 0);
+}
+
 .mapbutton.inactive {
     color: #999;
 }
@@ -77,6 +87,34 @@ p, h1,h2,h3 {
 .mapbutton.narrow {
     width: 90px;
 }
+
+
+.realmapbutton {
+    padding: 4px 12px 4px 12px;
+    /* margin: 4px 12px 4px 12px; */
+    /* box-sizing: border-box; */
+    /* border: 1px solid #000000; */
+    background-color: #FFF;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    /* text-align: center; */
+}
+.realmapbutton:active {
+    background-color: rgb(100, 100, 100);
+    color: #FFF;
+}
+
+svgclick {
+  /* width: 70px;
+  height: 70px; */
+    fill: blue;
+}
+svgclick:hover {
+  fill: red;
+}
+
 
 #buttons {
     position: absolute;
