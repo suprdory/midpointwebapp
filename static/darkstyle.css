@@ -41,6 +41,21 @@ p, h1,h2,h3 {
     margin: 10%;
 }
 
+.fp_cont{
+    margin: 100px auto auto auto;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fp_cent{
+    /* margin: 10% auto; */
+    background: lightcoral; 
+    width: 100px;
+    height: 100px;
+}
+
+
 #fp_text {
     /* text-align: center; */
     color: #ffffff;
