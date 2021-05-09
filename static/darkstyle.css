@@ -97,6 +97,7 @@ p, h1,h2,h3 {
 
 .mapbutton.inactive {
     color: #999;
+    border: 1px solid #999;
 }
 
 .mapbutton.narrow {

@@ -15,12 +15,15 @@ $("username_id").addEventListener("keypress", function(event) {
         $("username_id").blur();
     }
 });
+$("currentloc_id").addEventListener("click", getLocation, false);
 
 $("done_id").addEventListener("click", function() {
+    if ($('lat_id').value){
     $('enterName').style.display = "block";
     $('chooseStart').style.display = "none";
-    $('myloc').style.display = "none";
+    // $('myloc').style.display = "none";
     $('username_id').focus();
+    }
 }, false);
 
 getMeet(meetid);

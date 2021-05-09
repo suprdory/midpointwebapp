@@ -17,25 +17,26 @@
 
             <input autofocus tabindex="1" id="pac-input" class="controls" type="text" placeholder="Search here or click on map..." />
             <br>
-            <a  tabindex="2" class=mapbutton id="done_id">Next</a>
-
+            <a tabindex="2" class=mapbutton id="done_id">Done</a>
+            <a tabindex="2" class=mapbutton id="currentloc_id">Current Location</a>
+            <a tabindex="3" class=mapbutton id="view_id">Skip</a>
         </div>
 
         <div id=enterName class=fullscreen>
             <h3>2. Enter Your Name</h3>
-            <input tabindex="3" class="mapbutton noclick" autocomplete="off" type="text" placeholder="Enter User Name" id="username_id" autocomplete="auto" name="username">
+            <input tabindex="4" class="mapbutton noclick" autocomplete="off" type="text" placeholder="Enter User Name" id="username_id" autocomplete="auto" name="username">
             <br>
             <h3>3. How Will You Be Travelling?</h3>
-            <select tabindex="4" class="mapbutton noclick" name="gmode" id="gmode_id">
+            <select tabindex="5" class="mapbutton noclick" name="gmode" id="gmode_id">
                 <option value="WALKING">Walking</option>
                 <option value="BICYCLING">Cycling</option>
                 <option value="TRANSIT">Public Transport</option>
                 <option value="DRIVING">Driving</option>
             </select>
             <br>
-            <a tabindex="5" class=mapbutton id="join_id">Join!</a>
+            <a tabindex="6" class=mapbutton id="join_id">Join!</a>
             <br>
-            <a tabindex="6" class=mapbutton id="view_id">Don't Join</a>
+            <a tabindex="7" class=mapbutton id="view_id">Skip</a>
         </div>
         <br>
     </div>
@@ -44,7 +45,7 @@
     <!-- <button onclick='postuser()'>Add User</button> -->
     <div id="map">
     </div>
-    <img id=myloc width="40px" src="/static/my_location_48px.svg" onclick='getLocation()' />
+    <!-- <img id=myloc width="40px" src="/static/img/my_location_48px.svg" onclick='getLocation()' /> -->
     <form id="latlon">
         <label for="lon_id">Longitude</label>
         <input type="text" id="lon_id" name="longitude"><br>
