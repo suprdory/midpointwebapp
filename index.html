@@ -21,29 +21,34 @@
     </div>
 
     <div class="container">
-        <h2 id=fp_text> Create a Meet </h2>
+        <h2 id=fp_text> New Meet </h2>
         <p id=current></p>
             <input tabindex=1 autofocus style="width:250px" class="mapbutton noclick" type="text" id="meetname_id"
              name="meetname" placeholder="Choose a name for your meet..."
              autocomplete="off">
             <br>
-            <select tabindex=2 name="mptype" id="mptype-select" class="mapbutton noclick">
+            <!-- <select tabindex=2 name="mptype" id="mptype-select" class="mapbutton noclick">
                 <option value="temporal"> Temporal</option>
                 <option value="spatial"> Spatial</option>
-            </select><br>
+            </select><br> -->
             <a tabindex=3 class="mapbutton" id=submit_id>Create</button></a>
         </form>
     </div>
     <!-- <div id="map"></div> -->
-
-
     <img id="favlogo" src="/static/img/favicon.ico" width=200>
+
+    <div class="container">
+        <h2 id=fp_text> Previous Meets </h2>
+        <ul>
+
+        </ul>
+    </div>
 </body>
 
 
 
 <script src="/static/setkeylocal.js"></script>
 <script src="/static/setkey.js"></script>
-<script src="/static/newmeet.js"></script>
+<script type="module" src="/static/newmeet.js"></script>
 
 </html>

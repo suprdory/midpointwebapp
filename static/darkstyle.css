@@ -231,12 +231,12 @@ a.placecard {
     z-index: 2
 }
 
-/* #meet_id {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1
-} */
+.meetlistelement{
+    /* position: absolute; */
+    /* top: 10px; */
+    /* right: 10px; */
+    color:rgb(255, 255, 255)
+}
 
 #pac-input {
     text-overflow: ellipsis;
