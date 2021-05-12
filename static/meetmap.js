@@ -1,19 +1,20 @@
+// import {newMeetHandlerLS} from './localStorageMod.js'
 const meetid = urlParams.get('meetid')
 const meetkey = urlParams.get('meetkey')
 // allow for generating share link while testing on localhost:5000
 if (window.location.port == "") {
-    invite_url = window.location.hostname + "/adduser.html?meetid=" + meetid + "&meetkey=" + meetkey;
-    meet_url = window.location.hostname + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
+    var invite_url = window.location.hostname + "/adduser.html?meetid=" + meetid + "&meetkey=" + meetkey;
+    var meet_url = window.location.hostname + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 } else {
-    invite_url = window.location.hostname + ":" + window.location.port + "/adduser.html?meetid=" + meetid + "&meetkey=" + meetkey;
-    meet_url = window.location.hostname + ":" + window.location.port + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
+    var invite_url = window.location.hostname + ":" + window.location.port + "/adduser.html?meetid=" + meetid + "&meetkey=" + meetkey;
+    var meet_url = window.location.hostname + ":" + window.location.port + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 }
 
 let Gmap, Gmarker, mpLatLng, mpMarker,mpType
 let Users = [],
     UserMarkers = [];
-Infos = [];
-dirRends = []
+var Infos = [];
+var dirRends = []
 const LDNlatlng = {
     lat: 51.474061958491355,
     lng: -0.09071767330169678
@@ -55,13 +56,6 @@ function togglePlaces() {
     }
 }
 
-// load gmaps api + callback to initMap + places library
-var script2 = document.createElement('script');
-script2.src = 'https://maps.googleapis.com/maps/api/js?key=' +
-    gmaps_api_key + '&libraries=places&callback=initMap';
-script2.async = true;
-document.head.appendChild(script2);
-
 function initMap() {
     Gmap = new google.maps.Map($("map"), {
         zoom: 14,
@@ -77,6 +71,14 @@ function initMap() {
     // getUsers(meetid);
 }
 
+// load gmaps api + callback to initMap + places library
+var script2 = document.createElement('script');
+script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places&callback=initMap';
+script2.async = true;
+document.head.appendChild(script2);
+
+
+
 function getMeet() {
     url = 'meet/' + meetid + '?meetkey=' + meetkey
     json = fetch(baseUrl + url, {
@@ -91,6 +93,7 @@ function getMeet() {
 
 function processMeet(data) {
     mpType=data.mptype;
+    // newMeetHandlerLS(data);
 }
 
 function clearUserMarkers() {

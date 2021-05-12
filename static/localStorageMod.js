@@ -1,64 +1,58 @@
-const form = document.querySelector('form')
-const ul = document.querySelector('ul')
-const button = document.querySelector('button')
-const input = document.getElementById('item')
+function createNewMeetForLocStor(meet) {
+    var newMeet = {
+        'name': meet.meetname,
+        'id': meet.meetid,
+        'key': meet.meetKey,
+        'date': new Date().toUTCString()
+    }
+    return (newMeet)
+}
 
-export function getMeetsArray(){
+function getMeetsArray() {
     let meetsArray = localStorage.getItem('meets')
         ? JSON.parse(localStorage.getItem('meets'))
         : []
-    return(meetsArray)
+    return (meetsArray)
 }
 
-export function newMeetHandler(newMeet,key){
-    console.log('New Meet',newMeet)
+export function newMeetHandlerLS(meet, key) {
+    var newMeet = createNewMeetForLocStor(meet)
+    var meetsArray = getMeetsArray()
+    // console.log('New Meet', newMeet)
     //remove matching items
-    for(var i=meetsArray.length-1;i>=0;i--){
-        meet = meetsArray[i]
+    for (var i = meetsArray.length - 1; i >= 0; i--) {
+        var meet = meetsArray[i]
+        console.log(meet[key])
+        console.log(newMeet[key])
         if (meet[key] == newMeet[key]) {
-            itemsArray.splice(i, 1)
-            console.log(item,"match")
+            meetsArray.splice(i, 1)
+            console.log(meet, "match")
         }
     }
     meetsArray.push(newMeet);
+    console.log(meetsArray)
     localStorage.setItem('meets', JSON.stringify(meetsArray))
 }
 
-function liMaker(text) {
+
+function liMaker(text, liurl, ul) {
     const li = document.createElement('li')
-    li.textContent = text
+    var a = document.createElement('a')
+    a.textContent = text
+    a.href = liurl
+    a.className = "meetlistelement"
+    li.appendChild(a)
     ul.appendChild(li)
 }
 
-function updateList() {
+export function updateListLS(ul) {
+    var meetsArray = getMeetsArray()
     while (ul.firstChild) {
         ul.removeChild(ul.firstChild)
     }
     meetsArray.slice().reverse().forEach((meet) => {
-        liMaker(meet.name + ' ' + meet.date)
+        var liurl = "/meetmap.html?meetid=" + meet.id + '&meetkey=' + meet.key;
+        // console.log(liurl)
+        liMaker(meet.name + ' ' + meet.date, liurl, ul);
     })
 }
-
-// form.addEventListener('submit', function (e) {
-//     e.preventDefault()
-
-//     newItem = {
-//         'name': input.value,
-//         'date': new Date().toUTCString()
-//     }
-//     newItemHandler(newItem, "name")
-//     updateList();
-//     input.value = ''
-// })
-
-// button.addEventListener('click', function () {
-//     localStorage.clear()
-//     itemsArray = getItemsArray();
-//     while (ul.firstChild) {
-//         ul.removeChild(ul.firstChild)
-//     }
-// })
-
-
-// itemsArray=getItemsArray();
-// updateList();
