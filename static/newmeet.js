@@ -54,7 +54,7 @@ function opennewmeet(meet){
     }
     newMeetHandler(newMeet, "id")
 
-    // window.location.href = "/adduser.html?meetid=" + meetid +'&meetkey='+meetKey
+    window.location.href = "/adduser.html?meetid=" + meetid +'&meetkey='+meetKey
   }
 }
 
@@ -72,8 +72,8 @@ function updateList() {
 function liMaker(text,liurl) {
   const li = document.createElement('li')
   var a = document.createElement('a')
-  a.textContent = text
-  a.href = liurl
+  // a.textContent = text
+  // a.href = liurl
   li.appendChild(a)
   a.className = "meetlistelement"
   ul.appendChild(li)
