@@ -49,7 +49,7 @@ function opennewmeet(meet) {
 
     newMeetHandlerLS(meet, "id")
     updateListLS(document.querySelector('ul'));
-    // window.location.href = "/adduser.html?meetid=" + meetid +'&meetkey='+meetKey
+    window.location.href = "/adduser.html?meetid=" + meetid +'&meetkey='+meetKey
   }
 }
 

@@ -1,5 +1,6 @@
-meetid=urlParams.get('meetid')
-meetkey=urlParams.get('meetkey')
+import { newMeetHandlerLS } from './localStorageMod.js'
+var meetid=urlParams.get('meetid')
+var meetkey=urlParams.get('meetkey')
 
 let gRouteModes = [
     {text:'Walking', gName:'WALKING'},
@@ -15,11 +16,12 @@ let mptypes = [
 
 $("adduser_id").href='adduser.html?meetid='+meetid+'&meetkey='+meetkey
 $("meetmap_id").href='meetmap.html?meetid='+meetid+'&meetkey='+meetkey
+$("deletemeet_id").addEventListener("click", function () { deletemeet(meetid) });
 
 function getMeet(meetid) {
     // meetdata={meetkey:meetkey};
-    url='meet/' + meetid + '?meetkey=' +meetkey
-    json=fetch(baseUrl + url,{
+    let url='meet/' + meetid + '?meetkey=' +meetkey
+    let json=fetch(baseUrl + url,{
       method:'GET',
       headers:{'Content-Type': 'application/json; charset=utf-8'},
       // body:JSON.stringify(meetdata)
@@ -38,8 +40,8 @@ function clearUserList() {
 function getUsers(meetid) {
     // newmeetdata={meetname:mn};
     clearUserList()
-    url='meetusers/' + meetid + '?meetkey=' +meetkey
-    json=fetch(baseUrl + url,{
+    let url='meetusers/' + meetid + '?meetkey=' +meetkey
+    let json=fetch(baseUrl + url,{
       method:'GET',
       headers:{'Content-Type': 'application/json; charset=utf-8'}})
     .then(resp => resp.json())
@@ -57,7 +59,7 @@ function deleteUser(userid) {
     // window.location.href = "/web/meet/{{meet.meetid}}";
   }
 function deletemeet(meetid) {
-    url='meet/' + meetid.toString() + '?meetkey=' +meetkey
+    let url='meet/' + meetid.toString() + '?meetkey=' +meetkey
     fetch(baseUrl+url,{method:'DELETE'})
       // .then(data=>{return data.json()})
       .then(res=>{console.log(res)})
@@ -169,12 +171,12 @@ function populateUserTable(data){
 }
 
 function updateUser(userid) {
-  patchdata={
+  let patchdata={
     username:$("username"+userid).value,
     gRouteMode:$("gMode"+userid).value,
   };
   console.log(patchdata)
-  url='/user/'+userid.toString()+'?meetkey='+meetkey;
+  let url='/user/'+userid.toString()+'?meetkey='+meetkey;
   fetch(baseUrl+url,{
     method:'PATCH',
     body:JSON.stringify(patchdata),
@@ -186,11 +188,11 @@ function updateUser(userid) {
 }
 
 function updateMeet(meetid) {
-  patchdata = {
+  let patchdata = {
     mptype: $("mptype").value,
   };
   console.log(patchdata)
-  url = '/meet/' + meetid.toString() + '?meetkey=' + meetkey;
+  let url = '/meet/' + meetid.toString() + '?meetkey=' + meetkey;
   fetch(baseUrl + url, {
     method: 'PATCH',
     body: JSON.stringify(patchdata),

@@ -15,16 +15,17 @@ function getMeetsArray() {
     return (meetsArray)
 }
 
-export function newMeetHandlerLS(meet, key) {
+export function newMeetHandlerLS(meet) {
+    var key = 'id'
     var newMeet = createNewMeetForLocStor(meet)
     var meetsArray = getMeetsArray()
     // console.log('New Meet', newMeet)
     //remove matching items
     for (var i = meetsArray.length - 1; i >= 0; i--) {
         var meet = meetsArray[i]
-        console.log(meet[key])
-        console.log(newMeet[key])
-        if (meet[key] == newMeet[key]) {
+        // console.log(meet[key])
+        // console.log(newMeet[key])
+        if (meet[key] == newMeet[key] && meet[key]) {
             meetsArray.splice(i, 1)
             console.log(meet, "match")
         }

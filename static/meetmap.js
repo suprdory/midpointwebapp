@@ -1,11 +1,13 @@
-// import {newMeetHandlerLS} from './localStorageMod.js'
+import {newMeetHandlerLS} from './localStorageMod.js'
 const meetid = urlParams.get('meetid')
 const meetkey = urlParams.get('meetkey')
 // allow for generating share link while testing on localhost:5000
-if (window.location.port == "") {
+if (window.location.port == "") {    
+    // import {gmaps_api_key} from './setkey.js'
     var invite_url = window.location.hostname + "/adduser.html?meetid=" + meetid + "&meetkey=" + meetkey;
     var meet_url = window.location.hostname + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 } else {
+    // import {gmaps_api_key} from './setkeylocal.js';
     var invite_url = window.location.hostname + ":" + window.location.port + "/adduser.html?meetid=" + meetid + "&meetkey=" + meetkey;
     var meet_url = window.location.hostname + ":" + window.location.port + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 }
@@ -19,8 +21,8 @@ const LDNlatlng = {
     lat: 51.474061958491355,
     lng: -0.09071767330169678
 };
-let showPlaces = false
-let midPointExists = false
+var showPlaces = false
+var midPointExists = false
 
 // setup DOM elements
 $("meet_id").addEventListener("click", function() {
@@ -39,7 +41,7 @@ $("showPlaces").addEventListener("click", togglePlaces, false);
 const locationsAvailable = $('locationList');
 
 function togglePlaces() {
-    btn = $("showPlaces")
+    let btn = $("showPlaces")
     if (showPlaces) {
         showPlaces = false;
         locationsAvailable.style.display = "none"
@@ -56,7 +58,14 @@ function togglePlaces() {
     }
 }
 
-function initMap() {
+// load gmaps api + callback to initMap + places library
+var script2 = document.createElement('script');
+script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places&callback=initMap';
+script2.async = true;
+document.head.appendChild(script2);
+
+window.initMap = function () {
+    // JS API is loaded and available
     Gmap = new google.maps.Map($("map"), {
         zoom: 14,
         center: LDNlatlng,
@@ -71,17 +80,9 @@ function initMap() {
     // getUsers(meetid);
 }
 
-// load gmaps api + callback to initMap + places library
-var script2 = document.createElement('script');
-script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places&callback=initMap';
-script2.async = true;
-document.head.appendChild(script2);
-
-
-
 function getMeet() {
-    url = 'meet/' + meetid + '?meetkey=' + meetkey
-    json = fetch(baseUrl + url, {
+    var url = 'meet/' + meetid + '?meetkey=' + meetkey
+    var json = fetch(baseUrl + url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -93,7 +94,8 @@ function getMeet() {
 
 function processMeet(data) {
     mpType=data.mptype;
-    // newMeetHandlerLS(data);
+    console.log(data)
+    newMeetHandlerLS(data);
 }
 
 function clearUserMarkers() {
@@ -103,8 +105,8 @@ function clearUserMarkers() {
 }
 
 function getUsers(mpMethod) {
-    url = 'meetusers/' + meetid + '?meetkey=' + meetkey
-    json = fetch(baseUrl + url, {
+    var url = 'meetusers/' + meetid + '?meetkey=' + meetkey
+    var json = fetch(baseUrl + url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -121,17 +123,17 @@ function processUsers(users, mpMethod) {
     Infos = []
     for (let user of users) {
         // console.log(user.username)
-        uLatLng = {
+        var uLatLng = {
             lat: user.lat,
             lng: user.lon
         }
-        userMarker = createMarker(uLatLng, user.username)
+        var userMarker = createMarker(uLatLng, user.username)
         userMarker.addListener('dragend', function(event) {
             handleUserDragEvent(event, user)
         })
         UserMarkers.push(userMarker)
         Users.push(user)
-        contentString = "<b style=color:black;>" + user.username + "</b>";
+        var contentString = "<b style=color:black;>" + user.username + "</b>";
         const infowindow = new google.maps.InfoWindow({
             content: contentString,
         });
@@ -148,14 +150,14 @@ function processUsers(users, mpMethod) {
 
 function handleUserDragEvent(event, user) {
     //console.log
-    user.lon = event.latLng.lng(),
-        user.lat = event.latLng.lat(),
-        patchdata = {
+    user.lon = event.latLng.lng();
+    user.lat = event.latLng.lat();
+    var patchdata = {
             lat: event.latLng.lat(),
             lon: event.latLng.lng(),
-        };
+    };
     console.log(patchdata)
-    url = '/user/' + user.userid.toString() + '?meetkey=' + meetkey;
+    var url = '/user/' + user.userid.toString() + '?meetkey=' + meetkey;
     fetch(baseUrl + url, {
             method: 'PATCH',
             body: JSON.stringify(patchdata),
@@ -182,7 +184,7 @@ function handleUserDragEvent(event, user) {
 
 function getMidPoint(meetid, mpMethod) {
     // console.log(meetid)
-    url = 'midpoint/' + meetid + '/' + mpMethod + '?meetkey=' + meetkey
+    var url = 'midpoint/' + meetid + '/' + mpMethod + '?meetkey=' + meetkey
     fetch(baseUrl + url, {
             method: 'GET',
             headers: {
@@ -219,12 +221,12 @@ function initMidPoint(latLng) {
 }
 
 function updateRoutes() {
-    for (dirRend of dirRends) {
+    for (let dirRend of dirRends) {
         dirRend.setMap(null)
     }
-    for (i = 0; i < Users.length; i++) {
-        user = Users[i];
-        uLatLng = {
+    for (let i = 0; i < Users.length; i++) {
+        var user = Users[i];
+        var uLatLng = {
             lat: user.lat,
             lng: user.lon
         };
@@ -234,10 +236,10 @@ function updateRoutes() {
 }
 
 function getBounds() {
-    bounds = new google.maps.LatLngBounds();
-    for (i = 0; i < Users.length; i++) {
-        user = Users[i];
-        uLatLng = {
+    var bounds = new google.maps.LatLngBounds();
+    for (let i = 0; i < Users.length; i++) {
+        var user = Users[i];
+        var uLatLng = {
             lat: user.lat,
             lng: user.lon
         };
@@ -256,7 +258,7 @@ function nearbyPlaces() {
         rankBy: google.maps.places.RankBy.DISTANCE,
     };
 
-    service = new google.maps.places.PlacesService(Gmap);
+    let service = new google.maps.places.PlacesService(Gmap);
     service.nearbySearch(request, callback);
 
     function callback(places) {
@@ -271,7 +273,7 @@ function getMapPadding() {
     let buttonRect = $("topbuttons").getBoundingClientRect()
     let locationRect = $("nearbyPlaces").getBoundingClientRect()
     let infoWindowHeight = 75 // px
-    mapPadding = {
+    let mapPadding = {
         top: buttonRect.bottom + infoWindowHeight,
         bottom: locationRect.height,
     }
@@ -280,11 +282,11 @@ function getMapPadding() {
 }
 
 function setMidpoint() {
-    newMPdata = {
+    let newMPdata = {
         midpoint_lon: mpLatLng.lng,
         midpoint_lat: mpLatLng.lat
     };
-    url = 'midpoint/' + meetid + '/drag?meetkey=' + meetkey;
+    let url = 'midpoint/' + meetid + '/drag?meetkey=' + meetkey;
     fetch(baseUrl + url, {
             method: 'PATCH',
             body: JSON.stringify(newMPdata),
@@ -299,7 +301,7 @@ function setMidpoint() {
         nearbyPlaces();
     }
 
-    gmap_url='http://www.google.com/maps/place/' +
+    let gmap_url='http://www.google.com/maps/place/' +
     mpLatLng.lat + ',' +
     mpLatLng.lng
 
@@ -401,8 +403,8 @@ function updateMidPoint(latLng) {
 
 
 function updateInfoWindow(uix, response) {
-    user = Users[uix]
-    contentString = '<b style=color:black;">' + user.username + '<br>' + response.routes[0].legs[0].duration.text + '</b>'
+    let user = Users[uix]
+    let contentString = '<b style=color:black;">' + user.username + '<br>' + response.routes[0].legs[0].duration.text + '</b>'
     Infos[uix].setContent(contentString);
 }
 
@@ -444,20 +446,20 @@ function createMarker(latlng, name) {
         clickable: true,
         draggable: true
     };
-    newMarker = new google.maps.Marker(markerOptions);
+    var newMarker = new google.maps.Marker(markerOptions);
     // bounds.extend(latlng);
     return newMarker
 }
 
 function patchuser(userid, resp) {
     // console.log(resp)
-    patchdata = {
+    let patchdata = {
         gRoute: resp,
         gRouteStatus: resp.status,
         gRouteDuration: resp.routes[0].legs[0].duration.text,
         gRouteDistance: resp.routes[0].legs[0].distance.text,
     };
-    url = '/user/' + userid.toString() + '?meetkey=' + meetkey;
+    let url = '/user/' + userid.toString() + '?meetkey=' + meetkey;
     fetch(baseUrl + url, {
             method: 'PATCH',
             body: JSON.stringify(patchdata),

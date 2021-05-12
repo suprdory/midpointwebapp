@@ -1,5 +1,6 @@
-meetid = urlParams.get('meetid')
-meetkey = urlParams.get('meetkey')
+import { newMeetHandlerLS } from './localStorageMod.js'
+const meetid = urlParams.get('meetid')
+const meetkey = urlParams.get('meetkey')
 let Gmap, Gmarker
 
 // load gmaps api + callback initMap
@@ -30,8 +31,8 @@ getMeet(meetid);
 
 function getMeet(meetid) {
     // meetdata={meetkey:meetkey};
-    url = 'meet/' + meetid + '?meetkey=' + meetkey
-    json = fetch(baseUrl + url, {
+    var url = 'meet/' + meetid + '?meetkey=' + meetkey
+    var json = fetch(baseUrl + url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -39,15 +40,19 @@ function getMeet(meetid) {
             // body:JSON.stringify(meetdata)
         })
         .then(resp => resp.json())
-        .then(data => setTitle(data))
+        .then(data => handleMeet(data))
 }
 
+function handleMeet(meet){
+    newMeetHandlerLS(meet);
+    setTitle(meet);
+}
 function setTitle(meet) {
     if (meet.users.length > 0) {
         // console.log(meet.users.length>0)
-        titText = "Join " + meet.users[0].username + '\'s meet: ' + meet.meetname;
+        var titText = "Join " + meet.users[0].username + '\'s meet: ' + meet.meetname;
     } else {
-        titText = "Join " + meet.meetname;
+        var titText = "Join " + meet.meetname;
     }
     $("title_id").innerHTML = titText
 }
@@ -61,14 +66,14 @@ function postuser() {
     if (un == '') {
         alert('No User Name')
     } else {
-        newuserdata = {
+        var newuserdata = {
             username: un,
             lon: lon,
             lat: lat,
             meetid: meetid,
             mode: mode
         };
-        url = 'user?meetkey=' + meetkey;
+        var url = 'user?meetkey=' + meetkey;
         fetch(baseUrl + url, {
                 method: 'POST',
                 body: JSON.stringify(newuserdata),
@@ -105,7 +110,7 @@ function mapClickHandler(mapsMouseEvent) {
     createMarker(latlng);
 }
 
-function initMap() {
+window.initMap=function() {
     const LDNlatlng = {
         lat: 51.474061958491355,
         lng: -0.09071767330169678
