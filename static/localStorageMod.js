@@ -104,7 +104,7 @@ function liMaker(meet, liurl, tab) {
     tr.appendChild(td_date);
     tr.appendChild(td_forget);
     tab.appendChild(tr);
-    tab.appendChild(document.createElement("br"));
+    // tab.appendChild(document.createElement("br"));
 }
 
 export function updateListLS(tab) {
@@ -115,11 +115,13 @@ export function updateListLS(tab) {
     console.log("MA", meetsArray)
     if (meetsArray.length==0) {
         let emptyListStr="No meets yet, create one above!";
+        let td = document.createElement('td');
         let a = document.createElement('a');
         a.textContent = emptyListStr;
-        a.className = "meetlistelement";
-        console.log("no meets")
-        tab.appendChild(a)
+        // a.className = "meetlistelement";
+        td.style.textAlign='center';
+        td.appendChild(a);
+        tab.appendChild(td);
     } else {
         let tr = document.createElement('tr');
         let th_name = document.createElement('th');
