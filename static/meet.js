@@ -50,7 +50,7 @@ function getUsers(meetid) {
 
 function deleteUser(userid) {
   // console.log('deleteuser(' + userid + ')');
-  url='user/' + userid.toString() + '?meetkey=' +meetkey
+  let url='user/' + userid.toString() + '?meetkey=' +meetkey
   fetch(baseUrl+url,{method:'DELETE'})
     // .then(data=>{return data.json()})
     .then(res=>{console.log(res)})

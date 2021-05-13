@@ -11,19 +11,19 @@ document.head.appendChild(script);
 
 $("join_id").addEventListener("click", postuser, false);
 $("view_id").href = 'meetmap.html?meetid=' + meetid + '&meetkey=' + meetkey
-$("username_id").addEventListener("keypress", function(event) {
+$("username_id").addEventListener("keypress", function (event) {
     if (event.keyCode == 13) {
         $("username_id").blur();
     }
 });
 $("currentloc_id").addEventListener("click", getLocation, false);
 
-$("done_id").addEventListener("click", function() {
-    if ($('lat_id').value){
-    $('enterName').style.display = "block";
-    $('chooseStart').style.display = "none";
-    // $('myloc').style.display = "none";
-    $('username_id').focus();
+$("done_id").addEventListener("click", function () {
+    if ($('lat_id').value) {
+        $('enterName').style.display = "block";
+        $('chooseStart').style.display = "none";
+        // $('myloc').style.display = "none";
+        $('username_id').focus();
     }
 }, false);
 
@@ -33,17 +33,17 @@ function getMeet(meetid) {
     // meetdata={meetkey:meetkey};
     var url = 'meet/' + meetid + '?meetkey=' + meetkey
     var json = fetch(baseUrl + url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            // body:JSON.stringify(meetdata)
-        })
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        // body:JSON.stringify(meetdata)
+    })
         .then(resp => resp.json())
         .then(data => handleMeet(data))
 }
 
-function handleMeet(meet){
+function handleMeet(meet) {
     newMeetHandlerLS(meet);
     setTitle(meet);
 }
@@ -75,12 +75,12 @@ function postuser() {
         };
         var url = 'user?meetkey=' + meetkey;
         fetch(baseUrl + url, {
-                method: 'POST',
-                body: JSON.stringify(newuserdata),
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
-            })
+            method: 'POST',
+            body: JSON.stringify(newuserdata),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
             .then(data => {
                 return data.json()
             })
@@ -90,7 +90,7 @@ function postuser() {
             .then(error => {
                 console.log(error)
             })
-            .then(function() {
+            .then(function () {
                 window.location.href = "/meetmap.html?meetid=" + meetid + '&meetkey=' + meetkey
             })
     }
@@ -104,13 +104,13 @@ function mapClickHandler(mapsMouseEvent) {
         lng: lng
     }
     setusercoords(latlng)
-    if(Gmarker){
+    if (Gmarker) {
         Gmarker.setMap(null);
     }
     createMarker(latlng);
 }
 
-window.initMap=function() {
+window.initMap = function () {
     const LDNlatlng = {
         lat: 51.474061958491355,
         lng: -0.09071767330169678
@@ -160,7 +160,7 @@ window.initMap=function() {
             }
 
             setusercoords(latLng2json(place.geometry.location))
-            if(Gmarker){
+            if (Gmarker) {
                 Gmarker.setMap(null);
             }
             createMarker(place.geometry.location);
@@ -216,7 +216,7 @@ function geocentre(position) {
     }
     Gmap.setCenter(latlng)
     Gmap.setZoom(15)
-    if (Gmarker){
+    if (Gmarker) {
         Gmarker.setMap(null);
     }
     createMarker(latlng)

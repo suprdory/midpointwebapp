@@ -1,8 +1,8 @@
-import {newMeetHandlerLS} from './localStorageMod.js'
+import { newMeetHandlerLS } from './localStorageMod.js'
 const meetid = urlParams.get('meetid')
 const meetkey = urlParams.get('meetkey')
 // allow for generating share link while testing on localhost:5000
-if (window.location.port == "") {    
+if (window.location.port == "") {
     // import {gmaps_api_key} from './setkey.js'
     var invite_url = window.location.hostname + "/adduser.html?meetid=" + meetid + "&meetkey=" + meetkey;
     var meet_url = window.location.hostname + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
@@ -12,7 +12,7 @@ if (window.location.port == "") {
     var meet_url = window.location.hostname + ":" + window.location.port + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 }
 
-let Gmap, Gmarker, mpLatLng, mpMarker,mpType
+let Gmap, Gmarker, mpLatLng, mpMarker, mpType
 let Users = [],
     UserMarkers = [];
 var Infos = [];
@@ -22,23 +22,56 @@ const LDNlatlng = {
     lng: -0.09071767330169678
 };
 var showPlaces = false
+var showButtons = false
 var midPointExists = false
 
 // setup DOM elements
-$("meet_id").addEventListener("click", function() {
-    window.location.href ='meet.html?meetid=' + meetid + '&meetkey=' + meetkey
-}, false);
+$("meet_id").addEventListener("click", function () {
+    window.location.href = 'meet.html?meetid=' + meetid + '&meetkey=' + meetkey
+}, { passive: true });
 
-$("add_id").addEventListener("click", function() {
+$("add_id").addEventListener("click", function () {
     window.location.href = 'adduser.html?meetid=' + meetid + '&meetkey=' + meetkey
-}, false);
-$("invite_id").addEventListener("click", function() {
+}, { passive: true });
+$("invite_id").addEventListener("click", function () {
     copyLink(invite_url)
-}, false);
-$("reset_id").addEventListener("click", resetMidpoint, false);
-$("set_id").addEventListener("click", setMidpoint, false);
-$("showPlaces").addEventListener("click", togglePlaces, false);
+}, { passive: true });
+$("reset_id").addEventListener("click", resetMidpoint, { passive: true });
+$("share_mploc_id").addEventListener("click", setMidpoint, { passive: true });
+$("home_id").addEventListener("click", function () {
+    window.location.href = '/'
+}, { passive: true });
+$("invite_id").addEventListener("click", function () {
+    copyLink(invite_url)
+}, { passive: true });
+$("share_meet_id").addEventListener("click", function () {
+    copyLink(meet_url)
+}, { passive: true });
+
+$("showPlaces").addEventListener("click", togglePlaces, { passive: true });
+$("showButtons").addEventListener("click", toggleButtons, { passive: true });
+
 const locationsAvailable = $('locationList');
+const buttons = $('topbuttons');
+
+function toggleButtons() {
+    let btn = $("showButtons")
+    if (showButtons) {
+        showButtons = false;
+        buttons.style.display = "none"
+        // btn.innerHTML = "Show Nearby Places"
+        Gmap.fitBounds(getBounds(), getMapPadding())
+
+    } else {
+        // if (midPointExists) {
+        showButtons = true;
+        buttons.style.display = "block";
+        // nearbyPlaces()
+        // btn.innerHTML = "Hide Nearby Places"
+        Gmap.fitBounds(getBounds(), getMapPadding())
+    }
+}
+
 
 function togglePlaces() {
     let btn = $("showPlaces")
@@ -93,7 +126,7 @@ function getMeet() {
 }
 
 function processMeet(data) {
-    mpType=data.mptype;
+    mpType = data.mptype;
     console.log(data)
     newMeetHandlerLS(data);
 }
@@ -107,11 +140,11 @@ function clearUserMarkers() {
 function getUsers(mpMethod) {
     var url = 'meetusers/' + meetid + '?meetkey=' + meetkey
     var json = fetch(baseUrl + url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    })
         .then(resp => resp.json())
         .then(data => processUsers(data, mpMethod))
 }
@@ -128,9 +161,9 @@ function processUsers(users, mpMethod) {
             lng: user.lon
         }
         var userMarker = createMarker(uLatLng, user.username)
-        userMarker.addListener('dragend', function(event) {
+        userMarker.addListener('dragend', function (event) {
             handleUserDragEvent(event, user)
-        })
+        }, { passive: true })
         UserMarkers.push(userMarker)
         Users.push(user)
         var contentString = "<b style=color:black;>" + user.username + "</b>";
@@ -153,18 +186,18 @@ function handleUserDragEvent(event, user) {
     user.lon = event.latLng.lng();
     user.lat = event.latLng.lat();
     var patchdata = {
-            lat: event.latLng.lat(),
-            lon: event.latLng.lng(),
+        lat: event.latLng.lat(),
+        lon: event.latLng.lng(),
     };
     console.log(patchdata)
     var url = '/user/' + user.userid.toString() + '?meetkey=' + meetkey;
     fetch(baseUrl + url, {
-            method: 'PATCH',
-            body: JSON.stringify(patchdata),
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
+        method: 'PATCH',
+        body: JSON.stringify(patchdata),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    })
         .then(data => {
             return data.json()
         })
@@ -186,11 +219,11 @@ function getMidPoint(meetid, mpMethod) {
     // console.log(meetid)
     var url = 'midpoint/' + meetid + '/' + mpMethod + '?meetkey=' + meetkey
     fetch(baseUrl + url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    })
         .then(resp => resp.json())
         .then(data => initMidPoint({
             lat: data.midpoint_lat,
@@ -210,7 +243,7 @@ function initMidPoint(latLng) {
     mpMarker = new google.maps.Marker(markerOptions);
     mpMarker.setAnimation(google.maps.Animation.BOUNCE)
     // mpMarker.addListener('drag', handleDragEvent);
-    mpMarker.addListener('dragend', handleDragEvent);
+    mpMarker.addListener('dragend', handleDragEvent, { passive: true });
     mpLatLng = latLng
     updateRoutes();
     midPointExists = true
@@ -288,12 +321,12 @@ function setMidpoint() {
     };
     let url = 'midpoint/' + meetid + '/drag?meetkey=' + meetkey;
     fetch(baseUrl + url, {
-            method: 'PATCH',
-            body: JSON.stringify(newMPdata),
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
+        method: 'PATCH',
+        body: JSON.stringify(newMPdata),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    })
         .then(data => data.json())
         .then(res => console.log(res))
         .then(error => console.log(error))
@@ -301,9 +334,9 @@ function setMidpoint() {
         nearbyPlaces();
     }
 
-    let gmap_url='http://www.google.com/maps/place/' +
-    mpLatLng.lat + ',' +
-    mpLatLng.lng
+    let gmap_url = 'http://www.google.com/maps/place/' +
+        mpLatLng.lat + ',' +
+        mpLatLng.lng
 
     copyLink(gmap_url)
 
@@ -342,12 +375,12 @@ function populatePlaces(places) {
         }
 
         addressCard.addEventListener("click",
-            function() {
+            function () {
                 updateMidPoint(placeLatLng)
                 // Gmap.setCenter(placeLatLng)
                 // Gmap.setZoom(18)
                 Gmap.fitBounds(getBounds(), getMapPadding())
-            }, false)
+            }, { passive: true })
 
         locationsAvailable.appendChild(addressCard)
     }
@@ -421,10 +454,10 @@ function plotRoute(origin_ll, dest_ll, userid, usermode, uix) {
     directionsRenderer.setMap(Gmap);
     directionsRenderer.setOptions(rendererOptions);
     directionsService.route({
-            origin: origin_ll,
-            destination: dest_ll,
-            travelMode: google.maps.TravelMode[usermode],
-        },
+        origin: origin_ll,
+        destination: dest_ll,
+        travelMode: google.maps.TravelMode[usermode],
+    },
         (response, status) => {
             if (status === "OK") {
                 directionsRenderer.setDirections(response);
@@ -461,12 +494,12 @@ function patchuser(userid, resp) {
     };
     let url = '/user/' + userid.toString() + '?meetkey=' + meetkey;
     fetch(baseUrl + url, {
-            method: 'PATCH',
-            body: JSON.stringify(patchdata),
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        })
+        method: 'PATCH',
+        body: JSON.stringify(patchdata),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    })
         .then(data => {
             return data.json()
         })
