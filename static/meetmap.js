@@ -1,4 +1,4 @@
-import { newMeetHandlerLS } from './localStorageMod.js'
+import { newMeetHandlerLS,deleteMeetLS } from './localStorageMod.js'
 const meetid = urlParams.get('meetid')
 const meetkey = urlParams.get('meetkey')
 // allow for generating share link while testing on localhost:5000
@@ -100,7 +100,7 @@ document.head.appendChild(script2);
 window.initMap = function () {
     // JS API is loaded and available
     Gmap = new google.maps.Map($("map"), {
-        zoom: 14,
+        zoom: 10,
         center: LDNlatlng,
         streetViewControl: false,
         mapTypeControl: false,
@@ -125,10 +125,14 @@ function getMeet() {
         .then(data => processMeet(data))
 }
 
-function processMeet(data) {
-    mpType = data.mptype;
-    console.log(data)
-    newMeetHandlerLS(data);
+function processMeet(meet) {
+    mpType = meet.mptype;
+    // console.log('current meet',data)
+    if (!meet.meetid) {
+        deleteMeetLS(meetid);
+        alert("meet:" + meetid + ' not available')
+    }
+    newMeetHandlerLS(meet);
 }
 
 function clearUserMarkers() {

@@ -1,0 +1,87 @@
+body {
+    color: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+    font-family: roboto, sans-serif;
+}
+p, h1,h2,h3 {
+        margin: 4px 4px 4px 4px;
+}
+
+#favlogo {
+    display: block;
+    image-rendering: pixelated;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px; 
+}
+
+#fp_title_id {
+    text-align: center;
+    color: #00d37b;
+    margin: 10%;
+}
+
+.fp_cont{
+    margin: 50px auto auto auto;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fp_cent{
+    /* margin: 10% auto; */
+    background: lightcoral; 
+    width: 100px;
+    height: 100px;
+}
+
+
+#fp_text {
+    text-align: center;
+    color: #ffffff;
+    /* margin: 10%; */
+}
+
+.mapbutton {
+    padding: 4px 4px;
+    margin: 4px 4px 4px 4px;
+    /* box-sizing: border-box; */
+    border: 1px solid #000000;
+    background-color: #FFF;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    /* text-align: center; */
+}
+
+.meetlistelement{
+    /* position: absolute; */
+    /* top: 10px; */
+    /* right: 10px; */
+    text-decoration: none;
+    color:rgb(255, 255, 255)
+}
+
+.centrecontainer {
+    margin: 40px 0px;
+    /* border: 3px solid #0000FF; */
+    text-align: center;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.centertext {
+    text-align: center;
+}
+
+td {
+    margin: 0px 0px;
+}
+
+th {
+    text-align: left;
+}

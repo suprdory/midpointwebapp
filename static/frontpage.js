@@ -1,4 +1,4 @@
-import {newMeetHandlerLS, updateListLS } from './localStorageMod.js'
+import {newMeetHandlerLS, updateListLS,clearBadMeetsLS } from './localStorageMod.js'
 
 document.getElementById("meetname_id").addEventListener("keypress", function (event) {
   if (event.keyCode == 13) {
@@ -48,10 +48,11 @@ function opennewmeet(meet) {
     var meetKey = meet.meetKey;
 
     newMeetHandlerLS(meet, "id")
-    updateListLS(document.querySelector('ul'));
+    updateListLS($('meetsList'));
     window.location.href = "/adduser.html?meetid=" + meetid +'&meetkey='+meetKey
   }
 }
 
 // Previous meets 
-updateListLS(document.querySelector('ul'));
+clearBadMeetsLS();
+updateListLS($('meetsList'));
