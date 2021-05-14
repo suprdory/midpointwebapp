@@ -220,7 +220,7 @@ function handleUserDragEvent(event, user) {
 
 
 function getMidPoint(meetid, mpMethod) {
-    // console.log(meetid)
+    console.log('getMidpoint:start', mpMethod)
     var url = 'midpoint/' + meetid + '/' + mpMethod + '?meetkey=' + meetkey
     fetch(baseUrl + url, {
         method: 'GET',
@@ -233,10 +233,13 @@ function getMidPoint(meetid, mpMethod) {
             lat: data.midpoint_lat,
             lng: data.midpoint_lon
         }))
+    // console.log('getMidpoint:end', meetid)
 }
 
 function initMidPoint(latLng) {
+    console.log('Gmap.setCenter:start',meetid)
     Gmap.setCenter(latLng)
+    console.log('Gmap.setCenter:start',meetid)
     let markerOptions = {
         position: latLng,
         map: Gmap,
@@ -395,7 +398,6 @@ function populatePlaces(places) {
 function resetMidpoint() {
     mpMarker.setMap(null);
     // getUsers('geometric')
-
     getUsers(mpType)
 }
 
