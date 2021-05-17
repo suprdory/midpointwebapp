@@ -310,11 +310,11 @@ function nearbyPlaces() {
 
 function getMapPadding() {
     // padding fro map for fitBounds from top "buttons" row and bottom "places" elements
-    let buttonRect = $("topbuttons").getBoundingClientRect()
+    // let buttonRect = $("topbuttons").getBoundingClientRect()
     let locationRect = $("nearbyPlaces").getBoundingClientRect()
     let infoWindowHeight = 75 // px
     let mapPadding = {
-        top: buttonRect.bottom + infoWindowHeight,
+        top: infoWindowHeight,
         bottom: locationRect.height,
     }
     // console.log(mapPadding)
