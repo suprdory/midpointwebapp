@@ -99,3 +99,4 @@ a.placecard {
     color: #222;
 }
 
+.no-close-button-on-info-windows .gm-ui-hover-effect { visibility: hidden; }

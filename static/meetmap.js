@@ -91,6 +91,13 @@ function togglePlaces() {
     }
 }
 
+// function blurAll() {
+//     var tmp = document.createElement("input");
+//     document.body.appendChild(tmp);
+//     tmp.focus();
+//     document.body.removeChild(tmp);
+// }
+
 // load gmaps api + callback to initMap + places library
 var script2 = document.createElement('script');
 script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places&callback=initMap';
@@ -109,8 +116,9 @@ window.initMap = function () {
     // Gmap.setPadding(0,100,0,100);
     getMeet()
     getUsers('stored')
-
-    // getUsers(meetid);
+    // $("map").focus()
+    // console.log('blurAll')
+    // blurAll()
 }
 
 function getMeet() {
