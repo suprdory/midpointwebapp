@@ -9,81 +9,65 @@
     <link rel="shortcut icon" href="/static/img/favicon.ico">
 </head>
 <body>
-        <div id="showButtons" style="max-width:40px;" class="buttonstoggle">
-            <div class="realmapbutton">
-                <img id=expand_id width="40px" src="/static/img/expand_more_black_48dp.svg" />
-            </div>
+    <div id="showButtons" style="max-width:40px;" class="buttonstoggle">
+        <div class="realmapbutton">
+            <img id=expand_id width="40px" src="/static/img/expand_more_black_48dp.svg" />
         </div>
+    </div>
 
     <div id=topbuttons style="max-width:270px;" class="topbuttonscontainer">
         <table id='buttonsTable'>
-            <tr>
+            <tr id=add_id class="realmapbutton">
                 <td width="60px">
-                    <div class="realmapbutton">
-                        <img id=add_id width="40px" src="/static/img/person_add_black_48dp.svg" />
-                    </div>
+                    <img  width="40px" src="/static/img/person_add_black_48dp.svg" />
                 </td>
                 <td>Add person to meet</td>
             </tr>
-            <tr>
+            <tr id=invite_id class="realmapbutton">
                 <td>
-                    <div class="realmapbutton">
-                        <img id=invite_id width="40px" src="/static/img/add_link_black_48dp.svg" />
-                    </div>
+                    <img width="40px" src="/static/img/add_link_black_48dp.svg" />
                 </td>
                 <td>Copy invite link</td>
             </tr>
-            <tr>
+            <tr class="realmapbutton" id=share_meet_id >
                 <td>
-                    <div class="realmapbutton">
-                        <img id=share_meet_id width="40px" src="/static/img/share_black_48dp.svg" />
-                    </div>
+                    <img width="40px" src="/static/img/share_black_48dp.svg" />
                 </td>
                 <td>Share this meet</td>
             </tr>
-            <tr>
+            <tr class="realmapbutton" id=share_mploc_id>
                 <td>
-                    <div class="realmapbutton">
-                        <img id=share_mploc_id width="40px" src="/static/img/share_location_black_48dp.svg" />
-                    </div>
+                    <img width="40px" src="/static/img/share_location_black_48dp.svg" />
                 </td>
                 <td>Share MidPoint location</td>
             </tr>
-
-            <tr>
+            <tr class="realmapbutton" id=reset_id>
                 <td>
-                    <div class="realmapbutton">
-                        <img id=reset_id width="40px" src="/static/img/refresh-black-48dp.svg" />
-                    </div>
+                    <img  width="40px" src="/static/img/refresh-black-48dp.svg" />
                 </td>
                 <td>Recalculate MidPoint</td>
             </tr>
-            <tr>
+            <tr class="realmapbutton" id=meet_id>
                 <td>
-                    <div class="realmapbutton">
-                        <img id=meet_id width="40px" src="/static/img/settings-black-48dp.svg" />
-                    </div>
+                    <img width="40px" src="/static/img/settings-black-48dp.svg" />
                 </td>
                 <td>Options</td>
             </tr>
-            <tr>
+            <tr class="realmapbutton" id=home_id>
                 <td>
-                    <div class="realmapbutton">
-                        <img id=home_id width="40px" src="/static/img/home_black_48dp.svg" />
-                    </div>
+                    <img width="40px" src="/static/img/home_black_48dp.svg" />
                 </td>
                 <td>Home Page</td>
             </tr>
         </table>
     </div>
 
-    <div id="map" class=no-close-button-on-info-windows></div>
-
     <div class=bottomFloat id=nearbyPlaces>
         <a class="mapbutton inactive" id=showPlaces>Show Nearby Places</a>
         <div class="scrollmenu" id="locationList"></div>
     </div>
 
+    <div id="map" class=no-close-button-on-info-windows></div>
 
     <script src="/static/setkeylocal.js"></script>
     <script src="/static/setkey.js"></script>
