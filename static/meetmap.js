@@ -209,7 +209,7 @@ function handleUserDragEvent(event, user) {
         .then(error => {
             console.log(error)
         })
-    getUsers(mpType)
+    resetMidpoint()
     Gmap.fitBounds(getBounds(), getMapPadding())
 
     // updateMidPoint(latLng);
