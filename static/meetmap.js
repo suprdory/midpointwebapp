@@ -26,27 +26,31 @@ var showButtons = false
 var midPointExists = false
 
 // setup DOM elements
+$("add_id").addEventListener("click", function () {
+    window.location.href = 'adduser.html?meetid=' + meetid + '&meetkey=' + meetkey
+}, { passive: true });
+
+$("invite_id").addEventListener("click", function () {
+    copyLink(invite_url)
+}, { passive: true });
+
+$("share_meet_id").addEventListener("click", function () {
+    copyLink(meet_url)
+}, { passive: true });
+
+$("share_mploc_id").addEventListener("click", setMidpoint, { passive: true });
+
+$("reset_id").addEventListener("click", resetMidpoint, { passive: true });
+
 $("meet_id").addEventListener("click", function () {
     window.location.href = 'meet.html?meetid=' + meetid + '&meetkey=' + meetkey
 }, { passive: true });
 
-$("add_id").addEventListener("click", function () {
-    window.location.href = 'adduser.html?meetid=' + meetid + '&meetkey=' + meetkey
-}, { passive: true });
-$("invite_id").addEventListener("click", function () {
-    copyLink(invite_url)
-}, { passive: true });
-$("reset_id").addEventListener("click", resetMidpoint, { passive: true });
-$("share_mploc_id").addEventListener("click", setMidpoint, { passive: true });
 $("home_id").addEventListener("click", function () {
     window.location.href = '/'
 }, { passive: true });
-$("invite_id").addEventListener("click", function () {
-    copyLink(invite_url)
-}, { passive: true });
-$("share_meet_id").addEventListener("click", function () {
-    copyLink(meet_url)
-}, { passive: true });
+
+
 
 $("showPlaces").addEventListener("click", togglePlaces, { passive: true });
 $("showButtons").addEventListener("click", toggleButtons, { passive: true });
