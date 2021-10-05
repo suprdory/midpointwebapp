@@ -102,7 +102,7 @@ document.head.appendChild(script2);
 setInterval(userUpdateCheckTimer, 5000);
 
 function userUpdateCheckTimer() {
-    console.log(' each 5 second...');
+    // console.log(' each 5 second...');
     getMeetlastmod()
 }
 
@@ -134,11 +134,12 @@ function getMeetlastmod() {
 
 function checkForUserUpdate(newlastmod) {
     var usersupdated=(lastMod!=newlastmod)
-    console.log(usersupdated)
+    // console.log(usersupdated)
     if (usersupdated) {
         alert("Users updated!");
-        mpMarker.setMap(null);
-        getUsers('stored');
+        // mpMarker.setMap(null);
+        // getUsers('stored');
+        resetMidpoint()
         lastMod=newlastmod
     }
 }
