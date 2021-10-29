@@ -41,9 +41,9 @@ body {
 .mapbutton {
     padding: 4px 4px;
     margin: 4px 4px 4px 4px;
-    border: 1px solid #000000;
+    border: 1px solid #000;
     background-color: #FFF;
-    color: rgb(0, 0, 0);
+    color: #000;
     text-decoration: none;
     font-size: 16px;
     display: inline-block;
@@ -51,13 +51,17 @@ body {
 }
 
 .mapbutton:active {
-    background-color: rgb(0, 0, 0);
     color: #FFF;
+    background-color: #555;
 }
 
-.mapbutton.inactive {
-    color: #999;
-    border: 1px solid #999;
+.mapbutton.enabled {
+    color: rgb(0, 0, 0);
+    border: 0px solid #F00;
+}
+.mapbutton.disabled {
+    color: #AAA;
+    border: 0px solid #F00;
 }
 
 #map {
@@ -70,28 +74,32 @@ body {
 }
 
 div.bottomFloat {
-    height: auto;
-    position: absolute;
+    position: fixed;
     bottom: 26px;
-    left: 0px;
-    /* right: 50px; */
-    right: auto;
-    /* border: 3px solid #abad21; */
+    background-color: #AAA;
+/*     border: 3px solid #abad21; */
 }
 
 div.scrollmenu {
-    height: auto;
-    width: auto;
-    position: relative;
+    max-height: 150px;
     overflow: auto;
-    white-space: nowrap;
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  /*     border: 3px solid #21ad38; */
 }
-
-a.placecard {
-    margin: 0px 0px 0px 4px;
-    background-color: #FFF;
-    color: #222;
-    user-select: none;
+div.scrollmenu::-webkit-scrollbar {
+  display: none;
+}
+.placecard {
+      display: block;
+      position: static;
+      margin: 0px 4px 2px 4px;
+      padding: 2px 2px;
+  background-color: rgb(255, 255, 255);
+      color: #222;
+      user-select:none;
+      width: 200px;
+/*   border: 3px solid rgb(0, 0, 0); */
 }
 
 .no-close-button-on-info-windows .gm-ui-hover-effect { visibility: hidden; }

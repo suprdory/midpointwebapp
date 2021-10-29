@@ -286,7 +286,10 @@ function initMidPoint(latLng) {
     mpLatLng = latLng
     updateRoutes();
     midPointExists = true
-    $("showPlaces").classList.remove("inactive")
+    console.log($("showPlaces").classList)
+    $("showPlaces").classList.remove("disabled")
+    $("showPlaces").classList.add("enabled")
+    console.log($("showPlaces").classList)
     if (showPlaces) {
         nearbyPlaces();
     }
@@ -326,7 +329,7 @@ function nearbyPlaces() {
     var request = {
         location: mpLatLng,
         // radius: '1000',
-        type: ['restaurant'],
+        type: ['bar'],
         rankBy: google.maps.places.RankBy.DISTANCE,
     };
 
