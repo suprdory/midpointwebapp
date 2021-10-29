@@ -394,7 +394,7 @@ function removeAddressCards() {
 
 function populatePlaces(places) {
     //display first 10 places
-    places.length = 10
+    // places.length = 10
     removeAddressCards()
     // const placesTitle = document.createElement('a');
     // placesTitle.innerHTML="Nearby Places:"
