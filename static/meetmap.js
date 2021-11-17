@@ -139,8 +139,9 @@ function checkForUserUpdate(newlastmod) {
         alert("Users updated!");
         // mpMarker.setMap(null);
         // getUsers('stored');
-        resetMidpoint()
-        lastMod=newlastmod
+                lastMod=newlastmod
+                resetMidpoint()
+
     }
 }
 
