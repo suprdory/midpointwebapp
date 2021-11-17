@@ -12,7 +12,7 @@ if (window.location.port == "") {
     var meet_url = window.location.hostname + ":" + window.location.port + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 }
 
-let Gmap, Gmarker, mpLatLng, mpMarker, mpType
+let Gmap, Gmarker, mpLatLng, mpMarker, mpType,lastMod
 let Users = [],
     UserMarkers = [];
 var Infos = [];
@@ -49,7 +49,6 @@ $("meet_id").addEventListener("click", function () {
 $("home_id").addEventListener("click", function () {
     window.location.href = '/'
 }, { passive: true });
-
 
 
 $("showPlaces").addEventListener("click", togglePlaces, { passive: true });
@@ -100,6 +99,12 @@ var script2 = document.createElement('script');
 script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places&callback=initMap';
 script2.async = true;
 document.head.appendChild(script2);
+setInterval(userUpdateCheckTimer, 5000);
+
+function userUpdateCheckTimer() {
+    // console.log(' each 5 second...');
+    getMeetlastmod()
+}
 
 window.initMap = function () {
     // JS API is loaded and available
@@ -113,6 +118,30 @@ window.initMap = function () {
     // Gmap.setPadding(0,100,0,100);
     getMeet()
     getUsers('stored')
+}
+
+function getMeetlastmod() {
+    var url = 'meet/' + meetid + '?meetkey=' + meetkey
+    var json = fetch(baseUrl + url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    })
+        .then(resp => resp.json())
+        .then(data => checkForUserUpdate(data.lastmod))
+}
+
+function checkForUserUpdate(newlastmod) {
+    var usersupdated=(lastMod!=newlastmod)
+    // console.log(usersupdated)
+    if (usersupdated) {
+        alert("Users updated!");
+        // mpMarker.setMap(null);
+        // getUsers('stored');
+        resetMidpoint()
+        lastMod=newlastmod
+    }
 }
 
 function getMeet() {
@@ -129,6 +158,7 @@ function getMeet() {
 
 function processMeet(meet) {
     mpType = meet.mptype;
+    lastMod = meet.lastmod;
     // console.log('current meet',data)
     if (!meet.meetid) {
         deleteMeetLS(meetid);
@@ -256,7 +286,10 @@ function initMidPoint(latLng) {
     mpLatLng = latLng
     updateRoutes();
     midPointExists = true
-    $("showPlaces").classList.remove("inactive")
+    console.log($("showPlaces").classList)
+    $("showPlaces").classList.remove("disabled")
+    $("showPlaces").classList.add("enabled")
+    console.log($("showPlaces").classList)
     if (showPlaces) {
         nearbyPlaces();
     }
@@ -296,7 +329,7 @@ function nearbyPlaces() {
     var request = {
         location: mpLatLng,
         // radius: '1000',
-        type: ['restaurant'],
+        type: ['bar'],
         rankBy: google.maps.places.RankBy.DISTANCE,
     };
 
@@ -361,7 +394,7 @@ function removeAddressCards() {
 
 function populatePlaces(places) {
     //display first 10 places
-    places.length = 10
+    // places.length = 10
     removeAddressCards()
     // const placesTitle = document.createElement('a');
     // placesTitle.innerHTML="Nearby Places:"
