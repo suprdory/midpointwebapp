@@ -35,8 +35,14 @@ p, h1,h2,h3 {
     height: 100px;
 }
 
+#whatis{
+    margin: auto auto auto auto; 
+    max-width: 500px;
+    line-height: 1.3;
+}
 
-#fp_text {
+
+.fp_text {
     text-align: center;
     color: #ffffff;
     /* margin: 10%; */
@@ -90,4 +96,7 @@ td {
 
 th {
     text-align: left;
+}
+li{
+  margin: 10px 0;
 }
