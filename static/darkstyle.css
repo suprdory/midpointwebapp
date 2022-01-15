@@ -73,6 +73,9 @@ p, h1,h2,h3 {
     width: 90px;
 }
 
+.mapbutton.vnarrow {
+    width: 30px;
+}
 
 .realmapbutton {
     padding: 4px 12px 4px 12px;
@@ -198,12 +201,10 @@ a.placecard {
     bottom: 120px;
     right: 10px;
     z-index: 2
-}
-
-
+} */
 
 #pac-input {
     text-overflow: ellipsis;
     width: 280px;
     border: 1px solid #000000;
-}
+} 
