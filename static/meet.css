@@ -58,3 +58,7 @@ p, h1,h2,h3 {
     width: 4ch;
 }
 
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
