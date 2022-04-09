@@ -1,5 +1,17 @@
 import {newMeetHandlerLS, updateListLS,clearBadMeetsLS } from './localStorageMod.js'
 
+function wakeServer() {
+    fetch(baseUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+    })
+        .then(resp => resp.json())
+        .catch((error) => {
+            console.log('Server Woken?', error)})
+        }
+
 document.getElementById("meetname_id").addEventListener("keypress", function (event) {
   if (event.keyCode == 13) {
     newmeet();
@@ -53,6 +65,7 @@ function opennewmeet(meet) {
   }
 }
 
+wakeServer()
 // Previous meets 
 clearBadMeetsLS();
 updateListLS($('meetsList'));
