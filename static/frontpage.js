@@ -12,11 +12,13 @@ function wakeServer() {
             console.log('Server Woken?', error)})
         }
 
-document.getElementById("meetname_id").addEventListener("keypress", function (event) {
-  if (event.keyCode == 13) {
-    newmeet();
-  }
-}, { passive: true });
+
+function newMeetonEnter(e){
+    if (e.key == "Enter") {
+        newmeet();
+      }
+}
+document.getElementById("meetname_id").addEventListener("keypress", newMeetonEnter, { passive: true });
 document.getElementById("submit_id").addEventListener("click", newmeet, { passive: true })
 
 function newmeet() {
@@ -25,8 +27,15 @@ function newmeet() {
   // var mptype = document.getElementById("mptype-select").value;
   var mptype = 'temporal'
   if (mn == "") {
+    
     alert("Enter meet name")
   } else {
+    
+    // ask user to wait (API server may take time to wake) and disable further clicks, enters
+    document.getElementById("submit_id").innerHTML="Wait...";
+    document.getElementById("submit_id").removeEventListener("click", newmeet);
+    document.getElementById("meetname_id").removeEventListener("keypress",newMeetonEnter(e));
+
     var newmeetdata = {
       meetname: mn,
       mptype: mptype
