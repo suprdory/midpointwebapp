@@ -34,7 +34,7 @@ function newmeet() {
     // ask user to wait (API server may take time to wake) and disable further clicks, enters
     document.getElementById("submit_id").innerHTML="Wait...";
     document.getElementById("submit_id").removeEventListener("click", newmeet);
-    document.getElementById("meetname_id").removeEventListener("keypress",newMeetonEnter(e));
+    document.getElementById("meetname_id").removeEventListener("keypress",newMeetonEnter);
 
     var newmeetdata = {
       meetname: mn,
