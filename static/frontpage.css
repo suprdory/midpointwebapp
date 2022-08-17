@@ -4,7 +4,7 @@ body {
     font-family: roboto, sans-serif;
 }
 p, h1,h2,h3 {
-        margin: 4px 4px 4px 4px;
+        margin: 12px 4px 4px 4px;
 }
 
 #favlogo {
@@ -37,7 +37,7 @@ p, h1,h2,h3 {
 
 #whatis{
     margin: auto auto auto auto; 
-    max-width: 500px;
+    width: min(90%,500px);
     line-height: 1.3;
 }
 
