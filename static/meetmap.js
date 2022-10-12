@@ -61,7 +61,8 @@ function toggleButtons() {
     let btn = $("showButtons")
     if (showButtons) {
         showButtons = false;
-        buttons.style.display = "none"
+        buttons.style.display = "none";
+        $("expand_id").src = "/static/img/expand_more_black_48dp.svg";
         // btn.innerHTML = "Show Nearby Places"
         Gmap.fitBounds(getBounds(), getMapPadding())
 
@@ -69,6 +70,7 @@ function toggleButtons() {
         // if (midPointExists) {
         showButtons = true;
         buttons.style.display = "block";
+        $("expand_id").src = "/static/img/expand_less_black_48dp.svg";
         // nearbyPlaces()
         // btn.innerHTML = "Hide Nearby Places"
         Gmap.fitBounds(getBounds(), getMapPadding())
@@ -214,6 +216,7 @@ function processUsers(users, mpMethod) {
     if (nUsers > 1) {
         getMidPoint(meetid, mpMethod)
     } else {
+        toggleButtons();
         Gmap.setCenter(uLatLng)
     }
 }
