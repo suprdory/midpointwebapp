@@ -98,11 +98,18 @@ function togglePlaces() {
 
 // load gmaps api + callback to initMap + places library
 var script2 = document.createElement('script');
-script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places&callback=initMap';
+script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places,marker&callback=initMap';
 script2.async = true;
 document.head.appendChild(script2);
-setInterval(userUpdateCheckTimer, 5000);
 
+// var script3 = document.createElement('script');
+// script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&callback=initMap&v=weekly&libraries=marker"
+// script2.async = true;
+// document.head.appendChild(script2);
+
+
+setInterval(userUpdateCheckTimer, 5000);
+// const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 function userUpdateCheckTimer() {
     // console.log(' each 5 second...');
     getMeetlastmod()
@@ -112,6 +119,7 @@ window.initMap = function () {
     // JS API is loaded and available
     Gmap = new google.maps.Map($("map"), {
         zoom: 10,
+        mapId:'meet_map_id',
         center: LDNlatlng,
         streetViewControl: false,
         mapTypeControl: false,
@@ -520,11 +528,13 @@ function createMarker(latlng, name) {
         position: latlng,
         map: Gmap,
         title: name,
-        label: name.charAt(0),
-        clickable: true,
+        // label: name.charAt(0),
+        // clickable: true,
         draggable: true
     };
-    var newMarker = new google.maps.Marker(markerOptions);
+    var newMarker = new google.maps.marker.AdvancedMarkerElement(markerOptions);
+    // var newMarker = new google.maps.Marker(markerOptions);
+
     // bounds.extend(latlng);
     return newMarker
 }
