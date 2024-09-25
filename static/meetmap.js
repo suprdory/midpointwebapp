@@ -12,7 +12,7 @@ if (window.location.port == "") {
     var meet_url = window.location.hostname + ":" + window.location.port + "/meetmap.html?meetid=" + meetid + "&meetkey=" + meetkey;
 }
 
-let Gmap, Gmarker, mpLatLng, mpMarker, mpType,lastMod
+let Gmap, mpLatLng, mpMarker, mpType,lastMod
 let Users = [],
     UserMarkers = [];
 var Infos = [];
@@ -101,12 +101,6 @@ var script2 = document.createElement('script');
 script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&libraries=places,marker&callback=initMap';
 script2.async = true;
 document.head.appendChild(script2);
-
-// var script3 = document.createElement('script');
-// script2.src = 'https://maps.googleapis.com/maps/api/js?key=' + gmaps_api_key + '&callback=initMap&v=weekly&libraries=marker"
-// script2.async = true;
-// document.head.appendChild(script2);
-
 
 setInterval(userUpdateCheckTimer, 5000);
 // const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
@@ -237,7 +231,7 @@ function handleUserDragEvent(event, user) {
         lat: event.latLng.lat(),
         lon: event.latLng.lng(),
     };
-    console.log(patchdata)
+    // console.log(patchdata)
     var url = '/user/' + user.userid.toString() + '?meetkey=' + meetkey;
     fetch(baseUrl + url, {
         method: 'PATCH',
@@ -250,7 +244,7 @@ function handleUserDragEvent(event, user) {
             return data.json()
         })
         .then(res => {
-            console.log(res)
+            // console.log(res)
         })
         .then(error => {
             console.log(error)
@@ -264,7 +258,7 @@ function handleUserDragEvent(event, user) {
 
 
 function getMidPoint(meetid, mpMethod) {
-    console.log('getMidpoint:start', mpMethod)
+    // console.log('getMidpoint:start', mpMethod)
     var url = 'midpoint/' + meetid + '/' + mpMethod + '?meetkey=' + meetkey
     fetch(baseUrl + url, {
         method: 'GET',
@@ -281,27 +275,28 @@ function getMidPoint(meetid, mpMethod) {
 }
 
 function initMidPoint(latLng) {
-    console.log('Gmap.setCenter:start',meetid)
+    // console.log('Gmap.setCenter:start',meetid)
     Gmap.setCenter(latLng)
-    console.log('Gmap.setCenter:start',meetid)
+    // console.log('Gmap.setCenter:start',meetid)
     let markerOptions = {
         position: latLng,
         map: Gmap,
         title: 'MidPoint',
-        clickable: true,
-        draggable: true
+        gmpClickable: true,
+        gmpDraggable: true
     };
-    mpMarker = new google.maps.Marker(markerOptions);
-    mpMarker.setAnimation(google.maps.Animation.BOUNCE)
+    mpMarker = new google.maps.marker.AdvancedMarkerElement(markerOptions);
+    mpMarker.content.classList.add("bounce")
+    // mpMarker.setAnimation(google.maps.Animation.BOUNCE)
     // mpMarker.addListener('drag', handleDragEvent);
     mpMarker.addListener('dragend', handleDragEvent, { passive: true });
     mpLatLng = latLng
     updateRoutes();
     midPointExists = true
-    console.log($("showPlaces").classList)
+    // console.log($("showPlaces").classList)
     $("showPlaces").classList.remove("disabled")
     $("showPlaces").classList.add("enabled")
-    console.log($("showPlaces").classList)
+    // console.log($("showPlaces").classList)
     if (showPlaces) {
         nearbyPlaces();
     }
@@ -524,18 +519,20 @@ function plotRoute(origin_ll, dest_ll, userid, usermode, uix) {
 }
 
 function createMarker(latlng, name) {
+    const pinTextGlyph = new google.maps.marker.PinElement({
+        glyph: name[0],
+        glyphColor: "black",
+      });
     let markerOptions = {
         position: latlng,
         map: Gmap,
         title: name,
-        // label: name.charAt(0),
-        // clickable: true,
-        draggable: true
+        content: pinTextGlyph.element,
+        gmpClickable: true,
+        gmpDraggable: true
     };
     var newMarker = new google.maps.marker.AdvancedMarkerElement(markerOptions);
-    // var newMarker = new google.maps.Marker(markerOptions);
 
-    // bounds.extend(latlng);
     return newMarker
 }
 

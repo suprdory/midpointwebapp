@@ -1,12 +1,12 @@
 export function deleteMeetLS(meetid) {
-    console.log("meetid", meetid)
+    // console.log("meetid", meetid)
     var meetsArray = getMeetsArray();
     for (var i = meetsArray.length - 1; i >= 0; i--) {
         var meeti = meetsArray[i]
-        console.log(i, meeti["id"], meetid, meeti["id"] == meetid)
+        // console.log(i, meeti["id"], meetid, meeti["id"] == meetid)
         if (meeti["id"] == meetid) {
             meetsArray.splice(i, 1)
-            console.log(meeti, "match")
+            // console.log(meeti, "match")
         }
     }
     localStorage.setItem('meets', JSON.stringify(meetsArray))
@@ -17,10 +17,10 @@ export function clearBadMeetsLS() {
     var meetsArray = getMeetsArray();
     for (var i = meetsArray.length - 1; i >= 0; i--) {
         var meeti = meetsArray[i]
-        console.log(i, meeti["id"],)
+        // console.log(i, meeti["id"],)
         if (!meeti["id"]) {
             meetsArray.splice(i, 1)
-            console.log(meeti, "match")
+            // console.log(meeti, "match")
         }
     }
     localStorage.setItem('meets', JSON.stringify(meetsArray))
@@ -48,7 +48,7 @@ export function newMeetHandlerLS(meet) {
     var key = 'id'
     var newMeet = createNewMeetForLocStor(meet)
     var meetsArray = getMeetsArray()
-    console.log('meet', meet)
+    // console.log('meet', meet)
     //remove matching items
     for (var i = meetsArray.length - 1; i >= 0; i--) {
         var meeti = meetsArray[i]
@@ -56,15 +56,15 @@ export function newMeetHandlerLS(meet) {
         // console.log(newMeet[key])
         if (meeti[key] == newMeet[key] && meeti[key]) {
             meetsArray.splice(i, 1)
-            console.log(meet, "match")
+            // console.log(meet, "match")
         }
     }
     if (newMeet.id) {
         meetsArray.push(newMeet);
     }
 
-    console.log('New Meet', newMeet)
-    console.log(meetsArray)
+    // console.log('New Meet', newMeet)
+    // console.log(meetsArray)
     localStorage.setItem('meets', JSON.stringify(meetsArray))
 }
 
