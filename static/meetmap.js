@@ -207,7 +207,8 @@ function processUsers(users, mpMethod) {
         }, { passive: true })
         UserMarkers.push(userMarker)
         Users.push(user)
-        var contentString = "<b style=color:black;>" + user.username + "</b>";
+        var contentString = '<p class="infowindow">' + user.username + "</p>";
+        // var contentString = "test"
         const infowindow = new google.maps.InfoWindow({
             content: contentString,
         });
@@ -287,7 +288,6 @@ function initMidPoint(latLng) {
     };
     mpMarker = new google.maps.marker.AdvancedMarkerElement(markerOptions);
     mpMarker.content.classList.add("bounce")
-    // mpMarker.setAnimation(google.maps.Animation.BOUNCE)
     // mpMarker.addListener('drag', handleDragEvent);
     mpMarker.addListener('dragend', handleDragEvent, { passive: true });
     mpLatLng = latLng
@@ -351,7 +351,7 @@ function nearbyPlaces() {
 }
 
 function getMapPadding() {
-    // padding fro map for fitBounds from top "buttons" row and bottom "places" elements
+    // padding for map for fitBounds from top "buttons" row and bottom "places" elements
     // let buttonRect = $("topbuttons").getBoundingClientRect()
     let locationRect = $("nearbyPlaces").getBoundingClientRect()
     let infoWindowHeight = 75 // px
@@ -475,7 +475,7 @@ function handleDragEvent(event) {
 
 function updateMidPoint(latLng) {
     mpLatLng = latLng
-    mpMarker.setPosition(mpLatLng)
+    // mpMarker.setPosition(mpLatLng)
     updateRoutes();
     if (showPlaces) {
         nearbyPlaces();
@@ -485,8 +485,10 @@ function updateMidPoint(latLng) {
 
 function updateInfoWindow(uix, response) {
     let user = Users[uix]
-    let contentString = '<b style=color:black;">' + user.username + '<br>' + response.routes[0].legs[0].duration.text + '</b>'
+    let contentString = '<p class="infowindow">' + user.username + '<br>' + response.routes[0].legs[0].duration.text + '</b>'
     Infos[uix].setContent(contentString);
+    // let contentString = "test"
+    // Infos[uix].setContent("<div style = 'display:inline-block'>" + "Test2" + "</div>");
 }
 
 function plotRoute(origin_ll, dest_ll, userid, usermode, uix) {
