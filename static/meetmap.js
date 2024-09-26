@@ -213,6 +213,7 @@ function processUsers(users, mpMethod) {
         // var contentString = "test"
         const infowindow = new google.maps.InfoWindow({
             content: contentString,
+            headerDisabled: true,
         });
         infowindow.open(Gmap, userMarker)
         // infowindow.setStyle("background-color:black")

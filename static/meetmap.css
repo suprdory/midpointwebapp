@@ -142,9 +142,8 @@ div.scrollmenu::-webkit-scrollbar {
     70% {transform: translateY(-5px);}
 }
 .infowindow{
-    display:inline-block;
+    /* display:inline-block; */
     font-weight: bold;
     margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    border: 2px;
+    /* overflow: hidden; */
 }
