@@ -195,13 +195,15 @@ function processUsers(users, mpMethod) {
     let nUsers = users.length
     Users = []
     Infos = []
+    let ux=0
     for (let user of users) {
         // console.log(user.username)
         var uLatLng = {
             lat: user.lat,
             lng: user.lon
         }
-        var userMarker = createMarker(uLatLng, user.username)
+        var userMarker = createMarker(uLatLng, user.username,ux)
+        ux+=1
         userMarker.addListener('dragend', function (event) {
             handleUserDragEvent(event, user)
         }, { passive: true })
@@ -485,8 +487,15 @@ function updateMidPoint(latLng) {
 
 function updateInfoWindow(uix, response) {
     let user = Users[uix]
-    let contentString = '<p class="infowindow">' + user.username + '<br>' + response.routes[0].legs[0].duration.text + '</b>'
+    let contentString = '<h4 class="infowindow">' + user.username + '<br>' + response.routes[0].legs[0].duration.text + '</h4>'
+    // const contentString = `
+//   <div style="margin: 0; padding: 0; line-height: 1.2; font-size: 14px;">
+//     <p style="margin: 0;">Line 1 of text</p>
+//     <p style="margin: 0;">Line 2 of text</p>
+//   </div>
+// `;
     Infos[uix].setContent(contentString);
+    // Infos[uix].setContent();
     // let contentString = "test"
     // Infos[uix].setContent("<div style = 'display:inline-block'>" + "Test2" + "</div>");
 }
@@ -500,6 +509,11 @@ function plotRoute(origin_ll, dest_ll, userid, usermode, uix) {
         supressInfoWindows: true,
         preserveViewport: true,
         suppressBicyclingLayer: true,
+        polylineOptions:{
+            strokeColor:googleColors[(2+uix)%3],
+            strokeOpacity: 0.7,     // Opacity of the route line
+            strokeWeight: 6         // Thickness of the route line
+        }
     }
     directionsRenderer.setMap(Gmap);
     directionsRenderer.setOptions(rendererOptions);
@@ -520,11 +534,43 @@ function plotRoute(origin_ll, dest_ll, userid, usermode, uix) {
     );
 }
 
-function createMarker(latlng, name) {
+const googleColors = [
+    "#4285F4",  // Blue
+    // "#DB4437",  // Red
+    "#F4B400",  // Yellow
+    "#0F9D58"   // Green
+  ];
+  const darkenedGoogleColors20 = [
+    "#3367C1",  // Dark Blue
+    // "#AC352C",  // Dark Red
+    "#C49000",  // Dark Yellow
+    "#0C7A46"   // Dark Green
+  ];
+  const darkenedGoogleColors40 = [
+    "#254A91",  // Dark Blue
+    // "#8B271F",  // Dark Red
+    "#8F6C00",  // Dark Yellow
+    "#095735"   // Dark Green
+  ];
+  const lightenedGoogleColors40 = [
+    "#86B7FF",  // Light Blue
+    // "#FF7B6F",  // Light Red
+    "#FFD966",  // Light Yellow
+    "#52C88A"   // Light Green
+  ];
+  const lightenedGoogleColors20 = [
+    "#669DFD",  // Light Blue
+    // "#E96E63",  // Light Red
+    "#F7C84D",  // Light Yellow
+    "#40B77A"   // Light Green
+  ];
+function createMarker(latlng, name,ux) {
     const pinTextGlyph = new google.maps.marker.PinElement({
         glyph: name[0],
         glyphColor: "black",
-      });
+        background: googleColors[(2+ux)%3],
+        borderColor: darkenedGoogleColors40[(2+ux)%3]
+          });
     let markerOptions = {
         position: latlng,
         map: Gmap,
